@@ -4,7 +4,7 @@
         "namefile":"maps/my-overworld",
         "music":"music/overworld.mp3",
         "tiles":{"A":"col", "~":"col", ".":"wild", "T":"wild", "-":"wild","+":"hurt"},
-        "monsters":["goblin"],
+        "enemies":["goblin"],
         "cycle":true,
         "doors":
         [
@@ -60,7 +60,7 @@
         "namefile": "maps/town-1",
         "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col", "W":"hurt"},
-        "monsters":[],
+        "enemies":[],
         "cycle":false,
         "doors":
         [
@@ -76,7 +76,7 @@
         "namefile": "maps/town-2",
         "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col", "W":"hurt"},
-        "monsters":[],
+        "enemies":[],
         "cycle":false,
         "doors":
         [
@@ -92,7 +92,7 @@
         "namefile": "maps/town-3",
         "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col"},
-        "monsters":[],
+        "enemies":[],
         "cycle":false,
         "doors":
         [
@@ -108,7 +108,7 @@
         "namefile": "maps/town-4",
         "music":"music/mermaid.mp3",
         "tiles":{"#":"col", "A":"col"},
-        "monsters":[],
+        "enemies":[],
         "cycle":false,
         "doors":
         [
@@ -124,7 +124,7 @@
         "namefile": "maps/town-5",
         "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col", "A":"col"},
-        "monsters":[],
+        "enemies":[],
         "cycle":false,
         "doors":
         [
@@ -140,7 +140,7 @@
         "namefile": "maps/dung-swamp-1",
         "music":"music/dungeon.mp3",
         "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
-        "monsters":["goblin", "slug"],
+        "enemies":["goblin", "slug"],
         "cycle":false,
         "doors":
         [
@@ -161,7 +161,7 @@
         "namefile": "maps/dung-swamp-2",
         "music":"music/dungeon-final.mp3",
         "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
-        "monsters":["slug"],
+        "enemies":["slug"],
         "cycle":true,
         "doors":
         [
@@ -177,7 +177,7 @@
         "namefile": "maps/dung-tunnel",
         "music":"music/dungeon.mp3",
         "tiles":{"A":"col", "-":"wild","~":"col"},
-        "monsters":["goblin","golem","golem"],
+        "enemies":["goblin","golem","golem"],
         "cycle":false,
         "doors":
         [
@@ -198,7 +198,7 @@
         "namefile": "maps/forest",
         "music":"music/treant.mp3",
         "tiles":{".":"wild", "T":"col", "W":"hurt"},
-        "monsters":["fruit"],
+        "enemies":["fruit"],
         "cycle":true,
         "doors":
         [

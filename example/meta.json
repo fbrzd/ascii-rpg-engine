@@ -1,0 +1,15 @@
+{
+    "zone":"???",
+    "position":[0,0],
+    "hp":10,
+    "atk":5,
+    "gold":0,
+    "items":[],
+    "event-flags":
+    {
+
+    },
+    "transports":{},
+    "music-die":"music/die.mp3",
+    "music-win":"music/win.mp3"
+}

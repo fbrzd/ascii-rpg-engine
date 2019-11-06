@@ -1,0 +1,30 @@
+{
+    "name-zone-here":
+    {
+        "namefile":"maps/map1",
+        "music":"music/town.mp3",
+        "tiles":{},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            
+        ]
+    },
+    "zone2":
+    {
+        "namefile":"maps/map2",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col"},
+        "enemies":["zombie"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[10,10],
+                "zone-dst":"name-zone-here",
+                "new-position":[0,0]
+            }
+        ]
+    }
+}

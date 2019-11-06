@@ -91,7 +91,7 @@
             {
                 "type":"rush",
                 "text":"if you cant defeat me, better forget the swamp!",
-                "monster":"soldier",
+                "enemy":"soldier",
                 "event-flags":{"sword":true}
             }
         },
@@ -405,7 +405,7 @@
             {
                 "type":"rush",
                 "text":"after you, nobody will can stop me!",
-                "monster":"evil-king",
+                "enemy":"evil-king",
                 "event-flags":{"win":true}
             }
         }

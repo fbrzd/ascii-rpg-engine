@@ -79,8 +79,8 @@ class Player:
                     self.last_battle += random.choice((0,0,0,1))
                     if self.last_battle > 3:
                         self.last_battle = 0
-                        if currentZone.monsters:
-                            randomMonster = random.choice(currentZone.monsters)
+                        if currentZone.enemies:
+                            randomMonster = random.choice(currentZone.enemies)
                             battle(self, randomMonster)
                             currentZone.mapArray.center_camera_on(self.y, self.x)
 
@@ -173,7 +173,7 @@ class Npc:
 
         if interact_type == "rush":
             myLogic.message(self.interact_parameters["text"])
-            battle(player, self.interact_parameters["monster"])
+            battle(player, self.interact_parameters["enemy"])
             currentZone.mapArray.center_camera_on(self.y, self.x)
         
         if interact_type == "transport":
@@ -207,7 +207,7 @@ class Zone:
         self.name = name
         self.namefile = f"{PATH}/{data['namefile']}"
         self.music = abstract.Sound(f"{PATH}/{data['music']}")
-        self.monsters = data["monsters"] # class fighther, load too early?
+        self.enemies = data["enemies"] # class fighther, load too early?
         self.doors = dict([(tuple(door["position"]), (door["zone-dst"],door["new-position"])) for door in data["doors"]])
         
         self.mapArray = abstract.MapArray(self.namefile, (0,0,10,30), cycle=data["cycle"])
@@ -228,21 +228,21 @@ class Zone:
                 self.npcs.append(n)
 
 #119
-def battle(player, monster):
+def battle(player, enemy):
     player.last_battle = 0
-    with open(PATH + "/monsters.json") as f:
-        data_monster = json.load(f)[monster]
-    max_hp_monster = data_monster["hp"]
+    with open(PATH + "/enemies.json") as f:
+        data_enemy = json.load(f)[enemy]
+    max_hp_enemy = data_enemy["hp"]
 
     battle_background = abstract.MapArray(camera=(2,7,6,17),cycle=True)
     battle_background.set_colors()
-    battle_background.add_sprite(2,7,0,data_monster["sprite"])
+    battle_background.add_sprite(2,7,0,data_enemy["sprite"])
     battle_background.set_camera(0,0)
 
     while 1:
         
         # select action
-        action = myLogic.menu(f"a {monster}, what does?", ("atk","item","run"))
+        action = myLogic.menu(f"a {enemy}, what does?", ("atk","item","run"))
         
         if action == 1:
             if not len(player.items): continue
@@ -251,51 +251,51 @@ def battle(player, monster):
             if item == -1: continue # back main menu
             
             item = options[item]
-            if not use_item_battle(item, player, data_monster):
+            if not use_item_battle(item, player, data_enemy):
                 myLogic.message("cant use this in battle!")
         if action == 2 or action == -1:
-            if random.randrange(2) and not data_monster["boss"]:
+            if random.randrange(2) and not data_enemy["boss"]:
                 myLogic.message("you flee way...")
                 break
             else: myLogic.message("cant flee!")
         if action == 0:
             damage = int(player.atk * random.uniform(0.7, 1.3))
-            data_monster["hp"] -= damage
-            myLogic.message(f"you hit {monster}, {damage} hp!")
+            data_enemy["hp"] -= damage
+            myLogic.message(f"you hit {enemy}, {damage} hp!")
         
         # here ends all player's actions
-        if data_monster["hp"] <= 0: break
+        if data_enemy["hp"] <= 0: break
         
-        action = random.choice(data_monster["actions"])
+        action = random.choice(data_enemy["actions"])
         
         if action == "atk":
-            damage = int(data_monster["atk"] * random.uniform(0.7, 1.3))
+            damage = int(data_enemy["atk"] * random.uniform(0.7, 1.3))
             player.hp -= damage
             player.show_info()
-            myLogic.message(f"{monster} hit you {damage} hp!")
+            myLogic.message(f"{enemy} hit you {damage} hp!")
         if action == "heal":
-            data_monster["hp"] = min(data_monster["hp"] + max_hp_monster//2, max_hp_monster)
-            myLogic.message(f"{monster} heal his wound")
+            data_enemy["hp"] = min(data_enemy["hp"] + max_hp_enemy//2, max_hp_enemy)
+            myLogic.message(f"{enemy} heal his wound")
         if action == "run":
-            myLogic.message(f"{monster} flees away")
+            myLogic.message(f"{enemy} flees away")
             break
         if action == "turn":
-            new_monster = data_monster["turn"]
-            myLogic.message(f"{monster} turn into... {new_monster}!")
-            monster = new_monster
-            with open("monsters.json") as f:
-                data_monster = json.load(f)[new_monster]
-            max_hp_monster = data_monster["hp"]
+            new_enemy = data_enemy["turn"]
+            myLogic.message(f"{enemy} turn into... {new_enemy}!")
+            enemy = new_enemy
+            with open("enemies.json") as f:
+                data_enemy = json.load(f)[new_enemy]
+            max_hp_enemy = data_enemy["hp"]
         if action == "wait":
-            myLogic.message(f"{monster} is waiting...")
+            myLogic.message(f"{enemy} is waiting...")
 
         # here ends all enemy's actions
         if player.hp <= 0: break
     
     # define end battle
-    if player.hp > 0 and data_monster["hp"] <= 0:
-        player.gold += data_monster["gold"]
-        myLogic.message(f"win! you earn {data_monster['gold']} gold!")
+    if player.hp > 0 and data_enemy["hp"] <= 0:
+        player.gold += data_enemy["gold"]
+        myLogic.message(f"win! you earn {data_enemy['gold']} gold!")
         return 1
     return 0
 
@@ -334,14 +334,14 @@ def use_item_zone(item, player, currentZone):
     player.show_info()
     return True
 
-def use_item_battle(item, player, data_monster):
+def use_item_battle(item, player, data_enemy):
     with open(PATH+"/items.json") as f:
         data_item = json.load(f)[item]
     if not data_item["battle"]: return False
     
     t = data_item["type"]
     if t == "hit":
-        data_monster["hp"] -= data_item["value"]
+        data_enemy["hp"] -= data_item["value"]
         myLogic.message(f"cause {data_item['value']} damage to the enemy!")
     if t == "heal":
         tmp = min(player.max_hp, player.hp + data_item["value"])

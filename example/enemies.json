@@ -1,0 +1,20 @@
+{
+    "zombie":
+    {
+        "hp":2,
+        "atk":1,
+        "sprite":"g",
+        "gold":1,
+        "actions":["atk"],
+        "boss":false
+    },
+    "thief":
+    {
+        "hp":4,
+        "atk":3,
+        "sprite":"l",
+        "gold":2,
+        "actions":["atk","run"],
+        "boss":false
+    }
+}
