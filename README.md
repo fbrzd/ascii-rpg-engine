@@ -68,7 +68,8 @@ Las variables de una zona, en el archivo __zones.json son:
   - position: indica la coordenada y,x en donde se ubica la _puerta_
   - zone-dst: indica el nombre de la zona a la cual se transportara el jugador
   - new-position: indica la nueva posición del jugador (y,x) en la nueva zona
-prueba añadir una puerta en la "zone1" agregando entre los _brackets_ lo siguiente: {"position":[y1,x1], "zone-dst":"zona-destino", "new-position":[y2,x2]}. Reemplaza los valores y,x con las posiciones que creas conveniente (aprovecha la zona "zone2" ya definida para para guiarte con la declaración de los tiles y las puertas).
+
+Prueba añadir una puerta en la "zone1" agregando entre los _brackets_ lo siguiente: {"position":[y1,x1], "zone-dst":"zona-destino", "new-position":[y2,x2]}. Reemplaza los valores y,x con las posiciones que creas conveniente (aprovecha la zona "zone2" ya definida para para guiarte con la declaración de los tiles y las puertas).
 
 Cosas que pueden generar confusión: los tags de los tiles y las puertas son independientes entre zonas. Ejemplo: En una zona el caracter "#" puede representar un muro infranqueable, pero en otra puede ser un techo por el que sí es posible caminar; entonces agregariamos el tile "#" con "col" únicamente en la primera zona, la cual no afecta nada de la segunda. Para el caso de las puertas es igual: no es necesario que las coordenadas se compartan entre "pares" de puertas (esto puede aprovecharse para hacer laberintos), además nisiquiera es necesario que se agregue un tile con un tag _especial_ (esto puede aprovecharse para hacer puertas falsas o puertas secretas)
 
