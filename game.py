@@ -332,6 +332,7 @@ def use_item_zone(item, player, currentZone):
     
     # check uses
     player.items.remove(item)
+    player.show_info()
     return True
 
 def use_item_battle(item, player, data_monster):
@@ -350,14 +351,19 @@ def use_item_battle(item, player, data_monster):
 
     # check uses
     player.items.remove(item)
+    player.show_info()
     return True
 
-PATH = argv[1]
-abstract.Sound.mute = "-mute" in argv
-myLogic,player,currentZone = start_management(argv[2])
-flagMove = False
+try:
+    PATH = argv[1]
+    abstract.Sound.mute = "-mute" in argv
+    myLogic,player,currentZone = start_management(argv[2])
+    flagMove = False
+except:
+    abstract.screen.curses.endwin()
+    print("error! syntax: python3 game.py <folder-data> <name player>")
 
-while player.hp > 0:
+while player.hp > 0 and not player.event_flags["win"]:
     if flagMove:
         # update zone's npcs
         for n in currentZone.npcs:
@@ -367,5 +373,13 @@ while player.hp > 0:
     currentZone,flagMove = player.main_control(currentZone)
 
 
-myLogic.message(f"{player.name} die...!")
+if player.hp <= 0:
+    with open(PATH + "/meta.json") as f:
+        abstract.Sound(PATH + '/' + json.load(f)["music-die"]).play()
+    myLogic.message(f"{player.name} die...!")
+elif player.event_flags["win"]:
+    with open(PATH + "/meta.json") as f:
+        abstract.Sound(PATH + '/' + json.load(f)["music-win"]).play()
+    myLogic.message(f"{player.name} win! finish the game!")
+
 abstract.screen.curses.endwin()

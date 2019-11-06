@@ -404,7 +404,7 @@
             "interact":
             {
                 "type":"rush",
-                "text":"texto de mierda",
+                "text":"after you, nobody will can stop me!",
                 "monster":"evil-king",
                 "event-flags":{"win":true}
             }

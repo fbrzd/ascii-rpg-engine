@@ -13,5 +13,8 @@
         "sword":false,
         "win":false
     },
-    "transports":{}
+    "transports":{},
+
+    "music-die":"music/die.mp3",
+    "music-win":"music/win.mp3"
 }

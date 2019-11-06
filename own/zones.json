@@ -2,7 +2,7 @@
     "overworld":
     {
         "namefile":"maps/my-overworld",
-        "music":"music/dung1.wav",
+        "music":"music/overworld.mp3",
         "tiles":{"A":"col", "~":"col", ".":"wild", "T":"wild", "-":"wild","+":"hurt"},
         "monsters":["goblin"],
         "cycle":true,
@@ -58,7 +58,7 @@
     "town-1":
     {
         "namefile": "maps/town-1",
-        "music":"music/town.wav",
+        "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col", "W":"hurt"},
         "monsters":[],
         "cycle":false,
@@ -74,7 +74,7 @@
     "town-2":
     {
         "namefile": "maps/town-2",
-        "music":"music/town.wav",
+        "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col", "W":"hurt"},
         "monsters":[],
         "cycle":false,
@@ -90,7 +90,7 @@
     "town-3":
     {
         "namefile": "maps/town-3",
-        "music":"music/town.wav",
+        "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col"},
         "monsters":[],
         "cycle":false,
@@ -106,7 +106,7 @@
     "town-4":
     {
         "namefile": "maps/town-4",
-        "music":"music/peace2.wav",
+        "music":"music/mermaid.mp3",
         "tiles":{"#":"col", "A":"col"},
         "monsters":[],
         "cycle":false,
@@ -122,7 +122,7 @@
     "town-5":
     {
         "namefile": "maps/town-5",
-        "music":"music/town.wav",
+        "music":"music/town.mp3",
         "tiles":{"#":"col", "~":"col", "A":"col"},
         "monsters":[],
         "cycle":false,
@@ -138,7 +138,7 @@
     "dung-swamp-1":
     {
         "namefile": "maps/dung-swamp-1",
-        "music":"music/dung1.wav",
+        "music":"music/dungeon.mp3",
         "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
         "monsters":["goblin", "slug"],
         "cycle":false,
@@ -159,7 +159,7 @@
     "dung-swamp-2":
     {
         "namefile": "maps/dung-swamp-2",
-        "music":"music/town.dung1",
+        "music":"music/dungeon-final.mp3",
         "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
         "monsters":["slug"],
         "cycle":true,
@@ -175,7 +175,7 @@
     "dung-tunnel":
     {
         "namefile": "maps/dung-tunnel",
-        "music":"music/dung1.wav",
+        "music":"music/dungeon.mp3",
         "tiles":{"A":"col", "-":"wild","~":"col"},
         "monsters":["goblin","golem","golem"],
         "cycle":false,
@@ -196,7 +196,7 @@
     "forest":
     {
         "namefile": "maps/forest",
-        "music":"music/hell1.wav",
+        "music":"music/treant.mp3",
         "tiles":{".":"wild", "T":"col", "W":"hurt"},
         "monsters":["fruit"],
         "cycle":true,

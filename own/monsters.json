@@ -46,7 +46,7 @@
     },
     "evil-king":
     {
-        "hp":50,
+        "hp":40,
         "atk":12,
         "sprite":"B",
         "gold":0,
