@@ -1,0 +1,516 @@
+{
+    "overworld":[],
+    "town-1":
+    [
+        {
+            "id": "info1",
+            "position":[3,8],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"in a far continent appears a swamp that is the door to the evil reign!"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[3,10],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"one wise traveled to the northern continent to ask for help from the mermaids"
+            }
+        },
+        {
+            "id": "info3",
+            "position":[11,5],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"i lost my ship when travel in a far continent... then a swamp was begin to create!"
+            }
+        },
+        {
+            "id": "shop-spell",
+            "position":[10,25],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"one treant give me this battle-spell, now i need sell it... 5 gold?",
+                "property":"item",
+                "item":"spell",
+                "cost":5
+            }
+        },
+        {
+            "id": "priest",
+            "position":[2,28],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"this town of wise try to keep the peace, can i heal your wounds?"
+            }
+        },
+        {
+            "id": "child-treant",
+            "position":[12,28],
+            "event-conditions":{"find":false},
+            "sprite":"T",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"w-what!? you find m-me! i must c-come back...!",
+                "event-flags":{"find":true}
+            }
+        }
+    ],
+    "town-2":
+    [
+        {
+            "id": "boss-sword",
+            "position":[1,18],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"rush",
+                "text":"if you cant defeat me, better forget the swamp!",
+                "monster":"soldier",
+                "event-flags":{"sword":true}
+            }
+        },
+        {
+            "id": "info1",
+            "position":[8,16],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"this town buy weapons & shields to dymz, the best blacksmith!"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[12,27],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"we chased treants for his magic, but the maze forest was unbreakable"
+            }
+        },
+        {
+            "id": "king",
+            "position":[1,16],
+            "event-conditions":{"sword":false},
+            "sprite":"k",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im the king... if you want our fire sword, defeat that soldier & come back later!"
+            }
+        },
+        {
+            "id": "king",
+            "position":[1,16],
+            "event-conditions":{"sword":true},
+            "sprite":"k",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"your strength has been proved! take this weapon and rescue this lands!",
+                "property":"atk",
+                "atk-value":15,
+                "cost":0
+            }
+        },
+        {
+            "id": "info3",
+            "position":[11,4],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"our soldiers are the best! but even them... sometimes die"
+            }
+        }
+    ],
+    "town-3":
+    [
+        {
+            "id": "shop-atk",
+            "position":[10,16],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"this sword came from the army town aside to the mountains, 6 atk for 8 gold?",
+                "property":"atk",
+                "atk-value":6,
+                "cost":8
+            }
+        },
+        {
+            "id": "shop-hp",
+            "position":[10,19],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"this old armor can raise your hp to 11, just for 5 gold",
+                "property":"hp",
+                "hp-value":11,
+                "cost":5
+            }
+        },
+        {
+            "id": "info1",
+            "position":[9,2],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"that northern swamp appears recently, could be dangerous"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[3,14],
+            "event-conditions":{"ship":false},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"long time ago a ship crushed where now place the swamp..."
+            }
+        },
+        {
+            "id": "info2",
+            "position":[3,14],
+            "event-conditions":{"ship":true},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"that is the ship! please go to the west, there should be information"
+            }
+        },
+        {
+            "id": "priest",
+            "position":[11,27],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"outside are only goblins, but remember rest when you arrive to a town"
+            }
+        }
+    ],
+    "town-4":
+    [
+        {
+            "id": "mermaid1",
+            "position":[2,3],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"im the elder mermaid... i made this potions... 5 gold for one...?",
+                "property":"item",
+                "item":"potion",
+                "cost":5,
+                "event-flags": {"potions":true}
+            }
+        },
+        {
+            "id": "mermaid2",
+            "position":[4,6],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"the elder's potions heals hp in travels or battles, take many!"
+            }
+        },
+        {
+            "id": "mermaid3",
+            "position":[9,23],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"i haven't seen a human in a long time... this is the mermaid town!"
+            }
+        },
+        {
+            "id": "mermaid4",
+            "position":[12,12],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"wow, you went through that tunnel? allow me care your wounds"
+            }
+        },
+        {
+            "id": "wise",
+            "position":[2,25],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im a wise, listen! search the treants in the northern forest..."
+            }
+        }
+    ],
+    "town-5":
+    [
+        {
+            "id": "priest",
+            "position":[2,3],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"the tunnel is very large... better care your wound before go..."
+            }
+        },
+        {
+            "id": "shop-repel",
+            "position":[4,26],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"armor? i sell this monsters repelent... free 30 steps, just 4 gold...?",
+                "property":"item",
+                "item":"repel",
+                "cost":4
+            }
+        },
+        {
+            "id": "dymz",
+            "position":[10,24],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"im dymz, the best blacksmith... you want my armor? its 20 gold...",
+                "property":"hp",
+                "hp-value":30,
+                "cost":20
+            }
+        },
+        {
+            "id": "info1",
+            "position":[6,14],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"here lives the famous blacksmith, dymz!"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[12,8],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"long time ago humans, mermaids & treants lived in peace together..."
+            }
+        }
+    ],
+    "dung-swamp-1":
+    [
+        {
+            "id": "ship",
+            "position":[2,2],
+            "event-conditions":{"ship":false},
+            "sprite":"s",
+            "move":false,
+            "interact":
+            {
+                "type":"transport",
+                "text":"(its a old ship!)",
+                "transport":["~","wild","s"],
+                "event-flags": {"ship":true}
+            }
+        }
+    ],
+    "dung-swamp-2":
+    [
+        {
+            "id": "boss",
+            "position":[5,17],
+            "event-conditions":{},
+            "sprite":"B",
+            "move":false,
+            "interact":
+            {
+                "type":"rush",
+                "text":"texto de mierda",
+                "monster":"evil-king",
+                "event-flags":{"win":true}
+            }
+        }
+    ],
+    "dung-tunnel":
+    [
+        {
+            "id": "adventurer",
+            "position":[20,14],
+            "event-conditions":{"potions":false},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"this tunnel is full of hard golems! stock up in the eastern town"
+            }
+        },
+        {
+            "id": "adventurer",
+            "position":[20,14],
+            "event-conditions":{"potions":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"you met the mermaids!? i plan to stay there forever je je"
+            }
+        }
+    ],
+    "forest":
+    [
+        {
+            "id": "treant1",
+            "position":[2,12],
+            "event-conditions":{},
+            "sprite":"T",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"h-human? searching h-help? find the e-elder..."
+            }
+        },
+        {
+            "id": "treant2",
+            "position":[10,30],
+            "event-conditions":{},
+            "sprite":"T",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"my c-child gave a spell & f-followed that wise to home..."
+            }
+        },
+        {
+            "id": "treant3",
+            "position":[12,19],
+            "event-conditions":{},
+            "sprite":"T",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"the w-western army town chased us... t-they had the fire sword..."
+            }
+        },
+        {
+            "id": "elder",
+            "position":[9,27],
+            "event-conditions":{"find":false},
+            "sprite":"T",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"help w-with a swamp? b-bring back the child treant... t-then speak..."
+            }
+        },
+        {
+            "id": "elder",
+            "position":[9,27],
+            "event-conditions":{"find":true},
+            "sprite":"T",
+            "move":false,
+            "interact":
+            {
+                "type":"transport",
+                "text":"t-thanks human... carry with t-this little treant, it w-will help you",
+                "transport": ["T","heal","t"]
+            }
+        },
+        {
+            "id": "child-treant",
+            "position":[4,19],
+            "event-conditions":{"find":true},
+            "sprite":"T",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"s-sorry, cant give more spells to h-humans..."
+            }
+        }
+    ]
+}

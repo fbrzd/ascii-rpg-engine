@@ -1,0 +1,17 @@
+{
+    "zone":"town-3",
+    "position":[7,17],
+    "hp":7,
+    "atk":3,
+    "gold":3,
+    "items":[],
+    "event-flags":
+    {
+        "ship":false,
+        "potions":false,
+        "find": false,
+        "sword":false,
+        "win":false
+    },
+    "transports":{}
+}

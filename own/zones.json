@@ -1,0 +1,212 @@
+{
+    "overworld":
+    {
+        "namefile":"maps/my-overworld",
+        "music":"music/dung1.wav",
+        "tiles":{"A":"col", "~":"col", ".":"wild", "T":"wild", "-":"wild","+":"hurt"},
+        "monsters":["goblin"],
+        "cycle":true,
+        "doors":
+        [
+            {
+                "position":[8,12],
+                "zone-dst":"town-1",
+                "new-position":[10,15]
+            },
+            {
+                "position":[6,59],
+                "zone-dst":"town-2",
+                "new-position":[14,16]
+            },
+            {
+                "position":[10,45],
+                "zone-dst":"town-3",
+                "new-position":[4,0]
+            },
+            {
+                "position":[18,16],
+                "zone-dst":"town-4",
+                "new-position":[13,29]
+            },
+            {
+                "position":[30,35],
+                "zone-dst":"town-5",
+                "new-position":[0,14]
+            },
+            {
+                "position":[5,41],
+                "zone-dst":"dung-swamp-1",
+                "new-position":[6,14]
+            },
+            {
+                "position":[23,19],
+                "zone-dst":"dung-tunnel",
+                "new-position":[0,46]
+            },
+            {
+                "position":[26,13],
+                "zone-dst":"dung-tunnel",
+                "new-position":[21,11]
+            },
+            {
+                "position":[3,4],
+                "zone-dst":"forest",
+                "new-position":[7,15]
+            }
+        ]
+    },
+    "town-1":
+    {
+        "namefile": "maps/town-1",
+        "music":"music/town.wav",
+        "tiles":{"#":"col", "~":"col", "W":"hurt"},
+        "monsters":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[10,15],
+                "zone-dst":"overworld",
+                "new-position":[8,12]
+            }
+        ]
+    },
+    "town-2":
+    {
+        "namefile": "maps/town-2",
+        "music":"music/town.wav",
+        "tiles":{"#":"col", "~":"col", "W":"hurt"},
+        "monsters":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[14,16],
+                "zone-dst":"overworld",
+                "new-position":[6,59]
+            }
+        ]
+    },
+    "town-3":
+    {
+        "namefile": "maps/town-3",
+        "music":"music/town.wav",
+        "tiles":{"#":"col", "~":"col"},
+        "monsters":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[4,0],
+                "zone-dst":"overworld",
+                "new-position":[10,45]
+            }
+        ]
+    },
+    "town-4":
+    {
+        "namefile": "maps/town-4",
+        "music":"music/peace2.wav",
+        "tiles":{"#":"col", "A":"col"},
+        "monsters":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[13,29],
+                "zone-dst":"overworld",
+                "new-position":[18,16]
+            }
+        ]
+    },
+    "town-5":
+    {
+        "namefile": "maps/town-5",
+        "music":"music/town.wav",
+        "tiles":{"#":"col", "~":"col", "A":"col"},
+        "monsters":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[0,14],
+                "zone-dst":"overworld",
+                "new-position":[30,35]
+            }
+        ]
+    },
+    "dung-swamp-1":
+    {
+        "namefile": "maps/dung-swamp-1",
+        "music":"music/dung1.wav",
+        "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
+        "monsters":["goblin", "slug"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[6,14],
+                "zone-dst":"overworld",
+                "new-position":[5,41]
+            },
+            {
+                "position":[12,28],
+                "zone-dst":"dung-swamp-2",
+                "new-position":[12,28]
+            }
+        ]
+    },
+    "dung-swamp-2":
+    {
+        "namefile": "maps/dung-swamp-2",
+        "music":"music/town.dung1",
+        "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
+        "monsters":["slug"],
+        "cycle":true,
+        "doors":
+        [
+            {
+                "position":[12,28],
+                "zone-dst":"dung-swamp-1",
+                "new-position":[12,28]
+            }
+        ]
+    },
+    "dung-tunnel":
+    {
+        "namefile": "maps/dung-tunnel",
+        "music":"music/dung1.wav",
+        "tiles":{"A":"col", "-":"wild","~":"col"},
+        "monsters":["goblin","golem","golem"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "position":[21,11],
+                "zone-dst":"overworld",
+                "new-position":[26,13]
+            },
+            {
+                "position":[0,46],
+                "zone-dst":"overworld",
+                "new-position":[23,19]
+            }
+        ]
+    },
+    "forest":
+    {
+        "namefile": "maps/forest",
+        "music":"music/hell1.wav",
+        "tiles":{".":"wild", "T":"col", "W":"hurt"},
+        "monsters":["fruit"],
+        "cycle":true,
+        "doors":
+        [
+            {
+                "position":[7,15],
+                "zone-dst":"overworld",
+                "new-position":[3,4]
+            }
+        ]
+    }
+}

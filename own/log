@@ -1,0 +1,45 @@
+1:
+  town-3: info swamp, ship. buy atk/hp 1
+  dung-swamp-1: ship
+  town-3: info town-1
+
+2:
+  town-1: info ship, mermaids, swamp. spells
+  town-5: info races. hp 2. repel
+  dung-tunnel: golems
+  town-4: info treant. potions
+
+3:
+  forest: info town-2
+  town-1: treant child
+  forest: treant
+
+4:
+  town-2: info treant, dymz. atk 2
+  dung-swamp-2: boss
+--------------------------------------
+name  hp  atk gold
+xxxx  7   3
+gobl  2   1   1
+slug  4   3   2
+xxxx  11  6
+*spe      10  5
+gole  10  4   4
+*pot  15      3
+sold  20  7   0
+xxxx  30  15  
+evil  50  15  0
+--------------------------------------
+p player   i human    h healer
+b buy      y mermaid  k king
+
+s ship     t treant
+
+g goblin   l slug     m golem
+o fruit    B boss
+
+# wall     ~ water    . grass
+- sand     + swamp    T tree
+A mountain X town     O dungeon
+
+a b a b, e b/d# b-/d a/c#, dm a
