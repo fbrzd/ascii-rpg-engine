@@ -1,6 +1,5 @@
 import abstract
 import json
-from time import sleep
 from sys import argv
 import random
 
