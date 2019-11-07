@@ -1,20 +1,48 @@
 {
-    "zone":"town-3",
-    "position":[7,17],
-    "hp":7,
-    "atk":3,
-    "gold":3,
-    "items":[],
-    "event-flags":
+    "player":
     {
-        "ship":false,
-        "potions":false,
-        "find": false,
-        "sword":false,
-        "win":false
+        "zone":"town-3",
+        "position":[7,17],
+        "hp":7,
+        "atk":3,
+        "gold":3,
+        "items":[],
+        "max-items":10,
+        "event-flags":
+        {
+            "ship":false,
+            "potions":false,
+            "find": false,
+            "sword":false,
+            "win":false
+        },
+        "transports":{}
     },
-    "transports":{},
 
     "music-die":"music/die.mp3",
-    "music-win":"music/win.mp3"
+    "music-win":"music/win.mp3",
+
+    "formats":
+    {
+        "T": {"font":"green", "back":"black", "attrs":[]},
+        ".": {"font":"green", "back":"black", "attrs":["dim"]},
+        "~": {"font":"cyan", "back":"black", "attrs":["dim"]},
+        "+": {"font":"magenta", "back":"black", "attrs":["dim"]},
+        "A": {"font":"white", "back":"black", "attrs":["underline","dim"]},
+        "-": {"font":"yellow", "back":"black", "attrs":[]},
+        "W": {"font":"red", "back":"black", "attrs":["bold","blink"]},
+        "X": {"font":"red", "back":"black", "attrs":[]},
+        "O": {"font":"red", "back":"black", "attrs":["dim"]},
+
+        "s": {"font":"cyan", "back":"black", "attrs":[]},
+        "t": {"font":"green", "back":"black", "attrs":["underline"]},
+
+        "p": {"font":"magenta", "back":"black", "attrs":[]},
+        "i": {"font":"yellow", "back":"black", "attrs":[]},
+        "h": {"font":"cyan", "back":"black", "attrs":[]},
+        "b": {"font":"red", "back":"black", "attrs":[]},
+        "g": {"font":"green", "back":"black", "attrs":[]},
+        "l": {"font":"magenta", "back":"black", "attrs":[]},
+        "B": {"font":"magenta", "back":"black", "attrs":["dim"]}
+    }
 }

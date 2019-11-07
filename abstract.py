@@ -1,4 +1,3 @@
-from sys import argv
 import screen
 import numpy as np
 from os import environ
@@ -15,7 +14,7 @@ class Sound:
                 mixer.music.load(self.nf)
                 mixer.music.play(-1)
             except:
-                pass#print(fstr("not music available",'ic','red'))
+                pass
 
 class MapArray:
     def __init__(self, namefile=None, camera=(0,0,10,30), cycle=False):
@@ -36,15 +35,6 @@ class MapArray:
         # draw border
         SCREEN.draw_box(camera[0], camera[1], camera[2], camera[3])
 
-    def set_colors(self):
-        # colors default:
-        # 0:black, 1:red, 2:green, 3:yellow, 4:blue, 5:magenta, 6:cyan, and 7:white.
-        self.colors = {
-            'T':2, '.':2, '+':5, '~':4,
-            '-':3, 'X':1, 'p':5, 's':6,
-            'O':1, 'l':5, 'g':2, 't':2,
-            'W':1}
-        # SCREEN.color_management()
     def check_tile(self, y, x):
         ch = self.current_map[y%self.y, x%self.x]
         if ch in self.special_tiles: return self.special_tiles[ch]
@@ -74,7 +64,7 @@ class MapArray:
             
             buffer_map = np.array(buffer_map[pos_y: pos_y + ly, pos_x: pos_x + lx])
         #self.current_camera_position = pos_y,pos_x
-        SCREEN.put_img(y, x, buffer_map, self.colors)
+        SCREEN.put_img(y, x, buffer_map)
     def add_sprite(self, y, x, ids, ch):
         self.sprites[ids] = (ch, np.array([y, x]))
     def mov_sprite(self, ids, y, x):
@@ -82,7 +72,7 @@ class MapArray:
         self.sprites[ids][1][1] = x
     def refresh(self):
         self.camera()
-        SCREEN.refresh()#put_img()
+        SCREEN.refresh()
     def center_camera_on(self, y, x):
         self.set_camera(y - self.camera[2]//2, x - self.camera[3]//2)
 
@@ -90,15 +80,15 @@ class Logic:
     def __init__(self):
         #SCREEN = screen.Screen()
         self.message_box = (9,0,5,30) # y,x,ly,lx
-        self.info_box = (0,29,10,12) # y,x,ly,lx
+        self.info_box = (0,29,10,13) # y,x,ly,lx
         #self.main_box = (0,0,10,30) # y,x,ly,lx
-        self.menu_box = (9,29,5,12) # y,x,ly,lx
+        self.menu_box = (9,29,5,13) # y,x,ly,lx
         
         # frist (& unique) draw
         SCREEN.draw_box(9,0,5,30) # text
-        SCREEN.draw_box(0,29,10,12) # info
+        SCREEN.draw_box(0,29,10,13) # info
         #SCREEN.draw_box(0,0,10,30) # show
-        SCREEN.draw_box(9,29,5,12) # menu
+        SCREEN.draw_box(9,29,5,13) # menu
 
         self.button_down = 258 # key down
         self.button_up = 259 # key up
@@ -110,15 +100,15 @@ class Logic:
         self.button_quit = ord('q')
         self.button_mute = ord('m')
     
-    def menu(self, text, options):
+    def menu_3(self, text, options):
         y1,x1,ly1,lx1 = self.message_box
-        SCREEN.put_text(y1+1, x1+1, text, lx1-2)
+        SCREEN.put_text(y1+1, x1+1, ly1-2, lx1-2, text)
 
         y2,x2,ly2,lx2 = self.menu_box
         #SCREEN.put_text(y2+1, x2+2, ' '.join(options), max(map(len,options)))#lx2-3)
         for i,op in enumerate(options):
             SCREEN.put_ch(y2+1+i, x2+2, op)
-        
+
         cur_opt = 0
         SCREEN.put_ch(y2 + 1 + cur_opt, x2 + 1, '>')
         while 1:
@@ -128,6 +118,7 @@ class Logic:
                 SCREEN.put_ch(y2 + 1 + cur_opt, x2 + 1, ' ')
                 cur_opt = (cur_opt + 1) % len(options)
                 SCREEN.put_ch(y2 + 1 + cur_opt, x2 + 1, '>')
+                SCREEN.put_ch(y2+1+i, x2+2, op)
             #    SCREEN.refresh()
             elif key == self.button_up:
                 SCREEN.put_ch(y2 + 1 + cur_opt, x2 + 1, ' ')
@@ -136,7 +127,33 @@ class Logic:
             elif key == self.button_cancel:
                 cur_opt = -1
                 break
-            SCREEN.refresh()
+        
+        SCREEN.clear_box(y1+1, x1+1, ly1-2, lx1-2)
+        SCREEN.clear_box(y2+1, x2+1, ly2-2, lx2-2)
+        SCREEN.refresh()
+        return cur_opt
+    
+    def menu(self, text, options):
+        y1,x1,ly1,lx1 = self.message_box
+        SCREEN.put_text(y1+1, x1+1, ly1-2, lx1-2, text)
+
+        y2,x2,ly2,lx2 = self.menu_box
+        SCREEN.put_ch(y2+1, x2+lx2//2, '^')
+        SCREEN.put_ch(y2+3, x2+lx2//2, 'v')
+        cur_opt = 0
+        
+        while 1:
+            SCREEN.put_ch(y2+2, x2+lx2//2-len(options[cur_opt])//2, options[cur_opt])
+            key = SCREEN.getkey()
+            if key == self.button_accept: break
+            
+            if key == self.button_down: cur_opt = (cur_opt + 1) % len(options)
+            
+            if  key == self.button_up: cur_opt = (cur_opt - 1 + len(options)) % len(options)
+            elif key == self.button_cancel:
+                cur_opt = -1
+                break
+            SCREEN.put_ch(y2+2, x2+1, ' '*(lx2-2))
         
         SCREEN.clear_box(y1+1, x1+1, ly1-2, lx1-2)
         SCREEN.clear_box(y2+1, x2+1, ly2-2, lx2-2)
@@ -145,13 +162,16 @@ class Logic:
 
     def message(self, text):
         y,x,ly,lx = self.message_box
-        SCREEN.put_text(y+1, x+1, text, lx-2)
-        while 1:
-            key = SCREEN.getkey()
-            if key == self.button_accept or key == self.button_cancel: break
+        index_remain_text = 0
+        while index_remain_text != None:
+            index_remain_text = SCREEN.put_text(y+1, x+1, ly-2, lx-2, text[index_remain_text:])
+            #print(text[index_remain_text:])
+            while 1:
+                key = SCREEN.getkey()
+                if key == self.button_accept or key == self.button_cancel: break
         
-        SCREEN.clear_box(y+1, x+1, ly-2, lx-2)
-        SCREEN.refresh()
+            SCREEN.clear_box(y+1, x+1, ly-2, lx-2)
+            SCREEN.refresh()
     
     def information(self, infos):
         y,x,ly,lx = self.info_box
@@ -172,5 +192,10 @@ class Logic:
         if key == self.button_mute: return "mute"
         return None
 
-SCREEN = screen.Screen()
-mixer.init()
+def init_env(formats_data):
+    global SCREEN
+    SCREEN = screen.Screen(formats_data)
+    mixer.init()
+    return Logic()
+
+SCREEN = None

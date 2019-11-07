@@ -1,15 +1,23 @@
 {
-    "zone":"???",
-    "position":[0,0],
-    "hp":10,
-    "atk":5,
-    "gold":0,
-    "items":[],
-    "event-flags":
+    "player":
     {
+        "zone":"???",
+        "position":[0,0],
+        "hp":10,
+        "atk":5,
+        "gold":0,
+        "items":[],
+        "max-items":10,
+        "event-flags":
+        {
 
+        },
+        "transports":{}
     },
-    "transports":{},
     "music-die":"music/die.mp3",
-    "music-win":"music/win.mp3"
+    "music-win":"music/win.mp3",
+    "formats":
+    {
+        
+    }
 }

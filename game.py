@@ -14,7 +14,7 @@ class Player:
         self.atk = meta_data_json["atk"]
         self.gold = meta_data_json["gold"]
         self.items = meta_data_json["items"]
-        self.max_items = 9
+        self.max_items = meta_data_json["max-items"]
 
         self.event_flags = meta_data_json["event-flags"]
         self.transports = meta_data_json["transports"]
@@ -91,18 +91,17 @@ class Player:
                 if current_tile_tag == "heal": self.hp = min(self.hp + 1, self.max_hp)
             
         self.show_info()
-        return currentZone,flagMove
-    
+        return currentZone,flagMove   
     def show_info(self):
-        inventory = list(map(lambda x: f"-{x}{' '*(7-len(x))}x{self.items.count(x)}", set(self.items)))
+        #inventory = list(map(lambda x: f"-{x}{' '*(8-len(x))}x{self.items.count(x)}", set(self.items)))
         infos = [f"{self.name}:",
                  f"hp: {self.hp}/{self.max_hp}",
                  f"atk: {self.atk}",
                  f"g: {self.gold}",
-                 f"items:"] + inventory
+                 f"items: {len(self.items)}/{self.max_items}"]
         myLogic.information(infos)
     def menu_action(self):
-        action = myLogic.menu("", ("act","item"))
+        action = myLogic.menu("", ("interact","items"))
         if action == 0:
             for npc in currentZone.npcs:
                 if abs(npc.y - self.y) + abs(npc.x - self.x) == 1:
@@ -110,11 +109,14 @@ class Player:
                     break
         if action == 1:
             if not len(player.items): return None
-            options = list(set(player.items))
+            #options = list(set(player.items))
+            #options = list(map(lambda x: f"{x}{' '*(9-len(x))}x{self.items.count(x)}", set(self.items)))
+            options = list(map(lambda x: f"{x} x{self.items.count(x)}", set(self.items)))
             item = myLogic.menu(f"", options)
             if item == -1: return None # back main menu
             
             item = options[item]
+            item = item[:item.rfind('x')-1]
             if not use_item_zone(item, player, currentZone):
                 myLogic.message("cant use this here!")
 
@@ -147,11 +149,11 @@ class Npc:
         if interact_type == "talk":
             myLogic.message(self.interact_parameters["text"])
         
-        if interact_type == "menu":
-            o = myLogic.menu(self.interact_parameters["text"],self.interact_parameters["options"])
-            effect = self.interact_parameters["effects"][o]
-            if effect == "none": pass
-            if effect == "heal": player.hp = player.max_hp
+        #if interact_type == "menu":
+            #o = myLogic.menu(self.interact_parameters["text"],self.interact_parameters["options"])
+            #effect = self.interact_parameters["effects"][o]
+            #if effect == "none": pass
+            #if effect == "heal": player.hp = player.max_hp
         
         if interact_type == "heal":
             o = myLogic.menu(self.interact_parameters["text"], ("yes", "no"))
@@ -198,7 +200,7 @@ class Npc:
                 elif zone.mapArray.check_tile(self.y, self.x - 1) != "col":
                     self.x = (self.x - 1 + zone.mapArray.x) % zone.mapArray.x
             zone.mapArray.mov_sprite(self.id, self.y, self.x)
-            abstract.SCREEN.refresh()
+            #abstract.SCREEN.refresh()
 
 class Zone:
     def __init__(self, name, player):
@@ -212,7 +214,6 @@ class Zone:
         
         self.mapArray = abstract.MapArray(self.namefile, (0,0,10,30), cycle=data["cycle"])
         self.mapArray.special_tiles = data["tiles"]
-        self.mapArray.set_colors()
         
         with open(PATH + "/npcs.json") as f:
             npcs = json.load(f)[name]
@@ -235,7 +236,6 @@ def battle(player, enemy):
     max_hp_enemy = data_enemy["hp"]
 
     battle_background = abstract.MapArray(camera=(2,7,6,17),cycle=True)
-    battle_background.set_colors()
     battle_background.add_sprite(2,7,0,data_enemy["sprite"])
     battle_background.set_camera(0,0)
 
@@ -300,15 +300,18 @@ def battle(player, enemy):
     return 0
 
 def start_management(name):
-    myLogic = abstract.Logic()
     with open(PATH + "/saves.json") as f:
         saves_data = json.load(f)
-    if name in saves_data:
-        data_player = saves_data[name]
-    else:
-        with open(PATH + "/meta.json") as f:
-            meta_player = json.load(f)
+    
+    # make player
+    with open(PATH + "/meta.json") as f:
+        meta_data = json.load(f)
+    if name in saves_data: data_player = saves_data[name]
+    else: data_player = meta_data["player"]
     player = Player(name, data_player)
+
+    # ascii
+    myLogic = abstract.init_env(meta_data["formats"])
     currentZone = Zone(data_player["zone"], player)
     currentZone.mapArray.add_sprite(player.y, player.x, player, player.sprite)
     currentZone.mapArray.center_camera_on(player.y, player.x)
@@ -353,12 +356,12 @@ def use_item_battle(item, player, data_enemy):
     player.show_info()
     return True
 
-try:
-    PATH = argv[1]
+if 1:
     abstract.Sound.mute = "-mute" in argv
-    myLogic,player,currentZone = start_management(argv[2])
+    PATH = input("game folder: ")
+    myLogic,player,currentZone = start_management(input("name player: "))
     flagMove = False
-except:
+else:
     abstract.screen.curses.endwin()
     print("error! syntax: python3 game.py <folder-data> <name player>")
 
