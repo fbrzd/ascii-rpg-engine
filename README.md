@@ -1,7 +1,7 @@
 # ascii-rpg-engine
 Engine for rpg game. No graphics, just ascii text. (Include tutorial)
 
-## Resumen
+## Resumen & Quick-Start
 Minimalist engine writen in python3, library required are:
 - curses: for all "graphic" things
 - pygame: just _mixer_ module... for sound
@@ -9,31 +9,36 @@ Minimalist engine writen in python3, library required are:
 - random: for common mechanics of rpgs (random encounter, moves, etc)
 - numpy: for manipulate maps efficent and simple
 
-Run your own game using: python3 game.py _folder-game-name_ _player-name_
+Run your own game using:
+- from terminal, using the python's interpreter: python3 rpg-engine.py
+- from terminal, using the compiled program: ./rpg-engine
+then input the folder name that contains the game data, and put your player name... that's all!
 
-Make a world just need write json files, plain text for maps and move music in folders. Some features common in rpgs:
+Make a world just need write json files, plain text for maps and move music in folders. If not want tutorials, see the "own/" folder for a practical guide of a game "complete". Some features common in rpgs:
+
 ### Supported
 - random encounter by zones
 - stats hp, atk, gold
 - inventory for use items in overworld and battles
 - transport by specific tiles
-- npcs (heal/save, buy, talk, battle, give transports)
-- register of custom events done (only after npc'sinteract)
-- ... spawn npc by this events
+- npcs (heal/save, buy, talk, battle, give transports, add party-members)
+- register of custom events done (only after npc's interact)
+- ... spawn (or not) npc by this events
 - save game
+- stat's bonus for party members & and his "party-chat"
 
 ### Not Supported
-- party members (not yet, in planning)
 - class system (not yet, in planning)
 - more complex battle system (not planning)
 - scripted scenes (not yet, in planning)
 - spells/abilities (not yet)
+- text for intro/outro (very soon)
 
 ## Python implementation (better explain soon)
 The engine is divided in 3 "layers":
 - __screen.py__: this is the "low-level" layer, here print text/chars and add colors. curses module only works here.
 - __abstract.py__: this is a "middle" layer, contain the logic for make menus, messages-box & manipulate arrays for the maps.
-- __game.py__: this is the "high-level" layer, here management player and zone variables. starts, saves and ends games loads by extern files.
+- __rpg-engine.py__: this is the "high-level" layer, here management player and zone variables. starts, saves and ends games loads by extern files.
 
 ## Tutorial to make a World (Español)
 
@@ -48,7 +53,7 @@ Para este motor, un juego se define con 2 carpetas de recursos y 5 archivos json
 - __enemies.json__: este archivo define los stats de un enemigo, su letra para representación (igual que los npcs), el dinero por derrotarlo, y las acciones que puede hacer (esto último no es complejo, pero el listado de acciones se indicará abajo).
 - __items.json__: aqui se definen los objetos, con su tipo (de daño, curacion, etc) y un valor asociado que se utiliza según el tipo de este, además de indicadores para saber si se pueden usar en combate o fuera de él.
 
-Todo esto va dentro de una carpeta con nombre libre (la cual debe estar junto al archivo "game.py"). el tutorial hace referencia a la carpeta de ejemplo "example/", en ella se incluyen alguna definiciones de zonas, items y enemigos, ademas de musica y mapas para ahorrar crear propios (aunque se sugiere modificarlos para comprobar sus efectos)
+Todo esto va dentro de una carpeta con nombre libre. el tutorial hace referencia a la carpeta de ejemplo "example/", en ella se incluyen alguna definiciones de zonas, items y enemigos, ademas de musica y mapas para ahorrar crear los propios (aunque se sugiere modificarlos para comprobar sus efectos)
 
 ### 1. Jugador y Zonas
 Primero debes definir cuales serán los valores _por defecto_ que tendrá el jugador, para esto edita el archivo __meta.json__: reemplaza "zone":"???" por "zone":"zone1"; esto indicará que el jugador (_por defecto_) se encuentra en la "zone1". Si ejecutas el motor con la carpeta de tu juego, aún no funcionará, pues el motor intenta buscar "zone1" en el archivo __zones.json__ y esta no se encuentra.
@@ -117,6 +122,7 @@ Todas las interacciones de npcs (poner una propia __si__ romperá el juego), tod
 - heal: muestra un mensaje con la variable "text" y abre un menu para elegir curar todos tus hp o no, luego de curar guarda automaticamente la partida en __saves-json__.
 - rush: muestra un mensaje con la variable "text" e inicia un combate con el enemigo de la variable "enemy".
 - transport: muestra un mensaje con la variable "text" y agrega un transporte para el jugador, estos se definen con tres elementos: __1)__ el tile por el cual el transporte se activa, __2)__ el nuevo tag de ese tile y __3)__ el sprite que reemplaza al del jugador en esos tiles; estos 3 elementos deben estar en el mismo orden, en una lista en la variable "transport". Por ejemplo, para agregar un transporte que __1)__ se active sobre los tiles "T", __2)__ que cure al jugador cuando pase por uno, y que __3)__ cambie el sprite del jugador a "t", agregaríamos {"T", "heal", "t"}.
+- group: muestra un mensaje con la variable "text" y agrega al grupo el miembro en la variable "member", es el único momento donde se hacen efectivos los bonus para el "max_hp", "atk" y "max_items", además no se permitirá tener dos miembros con el mismo nombre
 
 soon items...
 
