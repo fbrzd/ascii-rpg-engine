@@ -1,0 +1,54 @@
+{
+    "player":
+    {
+        "zone":"world-main",
+        "position":[8,38],
+        "hp":7,
+        "atk":3,
+        "gold":3,
+        "items":[],
+        "max-items":10,
+        "event-flags":
+        {
+            "panther":false,
+            "timeskip-1":false,
+            "timeskip-2": false,
+            "zenithia-1":true,
+            "zenithia-2":false,
+            "wife":false,
+            "win":false
+        },
+        "transports":{},
+        "group":[]
+    },
+
+    "music-die":"music/die.mp3",
+    "music-win":"music/win.mp3",
+
+    "formats":
+    {
+        "T": {"font":"green", "back":"black", "attrs":[]},
+        ".": {"font":"green", "back":"black", "attrs":["dim"]},
+        ":": {"font":"white", "back":"black", "attrs":["bold"]},
+        "~": {"font":"cyan", "back":"black", "attrs":["dim"]},
+        "+": {"font":"magenta", "back":"black", "attrs":["dim"]},
+        "A": {"font":"white", "back":"black", "attrs":["underline","dim"]},
+        "-": {"font":"yellow", "back":"black", "attrs":[]},
+        "W": {"font":"red", "back":"black", "attrs":["bold","blink"]},
+        "X": {"font":"red", "back":"black", "attrs":[]},
+        "O": {"font":"red", "back":"black", "attrs":["dim"]},
+        "&": {"font":"green", "back":"black", "attrs":[]},
+
+        "M": {"font":"yellow", "back":"black", "attrs":[]},
+        
+        "s": {"font":"cyan", "back":"black", "attrs":[]},
+        "p": {"font":"magenta", "back":"black", "attrs":[]},
+        "i": {"font":"yellow", "back":"black", "attrs":[]},
+        "h": {"font":"cyan", "back":"black", "attrs":[]},
+        "b": {"font":"red", "back":"black", "attrs":[]},
+        "g": {"font":"green", "back":"black", "attrs":[]},
+        "m": {"font":"yellow","back":"black", "attrs":[]},
+        "w": {"font":"blue","back":"black", "attrs":[]},
+        "B": {"font":"magenta", "back":"black", "attrs":["dim"]}
+    }
+}

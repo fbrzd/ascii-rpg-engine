@@ -1,0 +1,23 @@
+{
+    "herb":
+    {
+        "type":"heal",
+        "value":10,
+        "zone":true,
+        "battle":true
+    },
+    "spell":
+    {
+        "type":"hit",
+        "value":10,
+        "zone":false,
+        "battle":true
+    },
+    "repel":
+    {
+        "type":"repel",
+        "value":30,
+        "zone":true,
+        "battle":false
+    }
+}

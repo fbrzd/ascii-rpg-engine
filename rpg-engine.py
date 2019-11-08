@@ -106,7 +106,9 @@ class Player:
                  f"hp  {self.hp}/{self.max_hp}",
                  f"atk {self.atk}",
                  f"$   {self.gold}",
-                 f"items {len(self.items)}/{self.max_items}"]
+                 "",
+                 f"items {len(self.items)}/{self.max_items}",
+                 f"group {len(self.group)}"]
         myLogic.information(infos)
     def menu_action(self):
         action = myLogic.menu("", ("interact","items","group"))
