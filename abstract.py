@@ -5,7 +5,6 @@ environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 from pygame import mixer
 
 class Sound:
-    mute = False
     def __init__(self,nf):
         self.nf = nf
     def play(self):

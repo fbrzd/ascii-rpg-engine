@@ -16,7 +16,8 @@
             "sword":false,
             "win":false
         },
-        "transports":{}
+        "transports":{},
+        "group":[]
     },
 
     "music-die":"music/die.mp3",

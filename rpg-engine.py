@@ -1,6 +1,6 @@
 import abstract
 import json
-from sys import argv
+from sys import argv,exit
 import random
 
 class Player:
@@ -15,9 +15,11 @@ class Player:
         self.gold = meta_data_json["gold"]
         self.items = meta_data_json["items"]
         self.max_items = meta_data_json["max-items"]
-
+        
         self.event_flags = meta_data_json["event-flags"]
         self.transports = meta_data_json["transports"]
+        self.group = meta_data_json["group"]
+
         self.last_battle = 0
         self.repel_flag = 0
 
@@ -25,13 +27,19 @@ class Player:
         k = myLogic.key_control()
         flagMove = False
 
+        # quit game
         if k == "quit":
             abstract.screen.curses.endwin()
             exit()
 
         # overworld-menu
-        if k == "accept": self.menu_action()
+        if k == "accept":
+            self.menu_action()
+            flagMove = True
         
+        # mute game
+        #elif k == "mute": abstract.Sound.toggle_mute()
+
         # move
         else:
             dy,dx,ly,lx = 0,0,currentZone.mapArray.y,currentZone.mapArray.x
@@ -95,13 +103,13 @@ class Player:
     def show_info(self):
         #inventory = list(map(lambda x: f"-{x}{' '*(8-len(x))}x{self.items.count(x)}", set(self.items)))
         infos = [f"{self.name}:",
-                 f"hp: {self.hp}/{self.max_hp}",
-                 f"atk: {self.atk}",
-                 f"g: {self.gold}",
-                 f"items: {len(self.items)}/{self.max_items}"]
+                 f"hp  {self.hp}/{self.max_hp}",
+                 f"atk {self.atk}",
+                 f"$   {self.gold}",
+                 f"items {len(self.items)}/{self.max_items}"]
         myLogic.information(infos)
     def menu_action(self):
-        action = myLogic.menu("", ("interact","items"))
+        action = myLogic.menu("", ("interact","items","group"))
         if action == 0:
             for npc in currentZone.npcs:
                 if abs(npc.y - self.y) + abs(npc.x - self.x) == 1:
@@ -109,8 +117,6 @@ class Player:
                     break
         if action == 1:
             if not len(player.items): return None
-            #options = list(set(player.items))
-            #options = list(map(lambda x: f"{x}{' '*(9-len(x))}x{self.items.count(x)}", set(self.items)))
             options = list(map(lambda x: f"{x} x{self.items.count(x)}", set(self.items)))
             item = myLogic.menu(f"", options)
             if item == -1: return None # back main menu
@@ -119,6 +125,18 @@ class Player:
             item = item[:item.rfind('x')-1]
             if not use_item_zone(item, player, currentZone):
                 myLogic.message("cant use this here!")
+        
+        if action == 2: # group
+            with open(PATH + "/npcs.json") as f:
+                all_members = json.load(f)["members-group"]
+            for name_member,data_member in all_members.items():
+                if name_member in self.group:
+                    flag_exist = True
+                    for chat in data_member["chats"]:
+                        for flag,value in chat["event-conditions"].items():
+                            if player.event_flags[flag] != value: flag_exist = False
+                        if flag_exist:
+                            myLogic.message(f"{name_member}: {chat['text']}")
 
     def save(self):
         with open(PATH + "/saves.json") as f:
@@ -126,12 +144,15 @@ class Player:
         data[self.name] = {
             "zone":currentZone.name,
             "position":(self.y,self.x),
-            "hp":self.max_hp,
-            "atk":self.atk,
+            "hp":self.max_hp,# - sum(map(lambda x: x[0], self.group.values())),
+            "atk":self.atk,# - sum(map(lambda x: x[1], self.group.values())),
             "gold":self.gold,
             "items":self.items,
+            "max-items":self.max_items,# - sum(map(lambda x: x[2], self.group.values())),
             "event-flags":self.event_flags,
-            "transports":self.transports}
+            "transports":self.transports,
+            "group":self.group
+        }
         with open(PATH + "/saves.json", 'w') as f:
             json.dump(data, f)
 
@@ -166,11 +187,15 @@ class Npc:
             if o == 0:
                 if player.gold < self.interact_parameters["cost"]: myLogic.message("not have enough gold...!")
                 else:
-                    player.gold -= self.interact_parameters["cost"]
+                    # item
                     if self.interact_parameters["property"] == "item":
-                        if len(player.items) < player.max_items: player.items.append(self.interact_parameters["item"])
+                        if len(player.items) < player.max_items:
+                            player.items.append(self.interact_parameters["item"])
+                            player.gold -= self.interact_parameters["cost"]
                         else: myLogic.message("your bag is full...!")
+                    # atk
                     if self.interact_parameters["property"] == "atk": player.atk = self.interact_parameters["atk-value"]
+                    # hp
                     if self.interact_parameters["property"] == "hp": player.max_hp = self.interact_parameters["hp-value"]
 
         if interact_type == "rush":
@@ -183,6 +208,22 @@ class Npc:
             tile,tile_tag,sprite = self.interact_parameters["transport"]
             player.transports[tile] = (tile_tag, sprite)
 
+        if interact_type == "group":
+            name_member = self.interact_parameters["member"]
+            if name_member not in player.group:
+                with open(PATH + "/npcs.json") as f:
+                    member = json.load(f)["members-group"][name_member]
+                
+                
+                player.group.append(name_member)
+                player.max_hp += member["hp"]
+                player.hp += member["hp"]
+                player.atk += member["atk"]
+                player.max_items += member["bag"]
+                player.show_info()
+            myLogic.message(self.interact_parameters["text"])
+            #currentZone.remove_npc(self)
+            
         if "event-flags" in self.interact_parameters:
             for flag,value in self.interact_parameters["event-flags"].items():
                 player.event_flags[flag] = value
@@ -200,7 +241,6 @@ class Npc:
                 elif zone.mapArray.check_tile(self.y, self.x - 1) != "col":
                     self.x = (self.x - 1 + zone.mapArray.x) % zone.mapArray.x
             zone.mapArray.mov_sprite(self.id, self.y, self.x)
-            #abstract.SCREEN.refresh()
 
 class Zone:
     def __init__(self, name, player):
@@ -227,6 +267,9 @@ class Zone:
                 n = Npc(data_npc)
                 self.mapArray.add_sprite(n.y, n.x, n.id, n.sprite)
                 self.npcs.append(n)
+    def remove_npc(self, npc):
+        self.npcs.remove(npc)
+        del self.mapArray.sprites[npc.id]
 
 #119
 def battle(player, enemy):
@@ -247,10 +290,12 @@ def battle(player, enemy):
         if action == 1:
             if not len(player.items): continue
             options = list(set(player.items))
+            options = list(map(lambda x: f"{x} x{player.items.count(x)}", set(player.items)))
             item = myLogic.menu(f"", options)
             if item == -1: continue # back main menu
             
             item = options[item]
+            item = item[:item.rfind('x')-1]
             if not use_item_battle(item, player, data_enemy):
                 myLogic.message("cant use this in battle!")
         if action == 2 or action == -1:
