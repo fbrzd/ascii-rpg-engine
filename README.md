@@ -131,8 +131,6 @@ soon items...
 - better menu
 - time-flag support, for simulate day/night or events by steps
 - cut-scenes support, like moves scripted
-- lite party-members support
-- colors customized
 
 ### ... Not too soon
 - animations
