@@ -23,7 +23,7 @@ class Player:
         self.last_battle = 0
         self.repel_flag = 0
 
-    def main_control(self, currentZone):
+    def main_control(self):
         k = myLogic.key_control()
         flagMove = False
 
@@ -42,8 +42,8 @@ class Player:
 
         # move
         else:
-            dy,dx,ly,lx = 0,0,currentZone.mapArray.y,currentZone.mapArray.x
-            if currentZone.mapArray.cycle: update_pos = lambda dx,dy: ((self.y + dy + ly) % ly, (self.x + dx + lx) % lx)
+            dy,dx,ly,lx = 0,0,player.currentZone.mapArray.y,player.currentZone.mapArray.x
+            if player.currentZone.mapArray.cycle: update_pos = lambda dx,dy: ((self.y + dy + ly) % ly, (self.x + dx + lx) % lx)
             else: update_pos = lambda dy,dx: max(min(ly, self.y+dy),0), max(min(lx, self.x+dx),0)
             
             if k == "up": dy = -1
@@ -51,15 +51,15 @@ class Player:
             if k == "left": dx = -1
             if k == "right": dx = 1
             
-            if currentZone.mapArray.cycle: new_y,new_x = (self.y + dy + ly) % ly, (self.x + dx + lx) % lx
+            if player.currentZone.mapArray.cycle: new_y,new_x = (self.y + dy + ly) % ly, (self.x + dx + lx) % lx
             else: new_y,new_x = max(min(ly-1, self.y+dy),0), max(min(lx-1, self.x+dx),0)
 
             # have transport (change tiles)
-            tile = currentZone.mapArray.current_map[new_y, new_x]
+            tile = player.currentZone.mapArray.current_map[new_y, new_x]
             if tile in self.transports:
                 current_tile_tag,tmp_sprite = self.transports[tile]
             else:
-                current_tile_tag = currentZone.mapArray.special_tiles[tile] if tile in currentZone.mapArray.special_tiles else "none"
+                current_tile_tag = player.currentZone.mapArray.special_tiles[tile] if tile in player.currentZone.mapArray.special_tiles else "none"
                 tmp_sprite = self.sprite
 
             # effects by tile
@@ -72,25 +72,25 @@ class Player:
                 if self.repel_flag > 0: self.repel_flag -= 1
                 
                 # change zone
-                if (self.y, self.x) in currentZone.doors:
-                    zone_dst,new_position = currentZone.doors[(self.y, self.x)]
-                    currentZone = Zone(zone_dst, player)
+                if (self.y, self.x) in player.currentZone.doors:
+                    zone_dst,new_position = player.currentZone.doors[(self.y, self.x)]
+                    player.currentZone = Zone(zone_dst, player)
                     self.y,self.x = new_position
-                    currentZone.music.play()
+                    player.currentZone.music.play()
 
                 # "render"
-                currentZone.mapArray.add_sprite(self.y, self.x, self, tmp_sprite)
-                currentZone.mapArray.center_camera_on(self.y, self.x)
+                player.currentZone.mapArray.add_sprite(self.y, self.x, self, tmp_sprite)
+                player.currentZone.mapArray.center_camera_on(self.y, self.x)
 
                 # battle
                 if current_tile_tag == "wild" and self.repel_flag == 0:
                     self.last_battle += random.choice((0,0,0,1))
                     if self.last_battle > 3:
                         self.last_battle = 0
-                        if currentZone.enemies:
-                            randomMonster = random.choice(currentZone.enemies)
+                        if player.currentZone.enemies:
+                            randomMonster = random.choice(player.currentZone.enemies)
                             battle(self, randomMonster)
-                            currentZone.mapArray.center_camera_on(self.y, self.x)
+                            player.currentZone.mapArray.center_camera_on(self.y, self.x)
 
                 # tile damage
                 if current_tile_tag == "hurt": self.hp -= 1
@@ -99,9 +99,8 @@ class Player:
                 if current_tile_tag == "heal": self.hp = min(self.hp + 1, self.max_hp)
             
         self.show_info()
-        return currentZone,flagMove   
+        return flagMove   
     def show_info(self):
-        #inventory = list(map(lambda x: f"-{x}{' '*(8-len(x))}x{self.items.count(x)}", set(self.items)))
         infos = [f"{self.name}:",
                  f"hp  {self.hp}/{self.max_hp}",
                  f"atk {self.atk}",
@@ -113,7 +112,7 @@ class Player:
     def menu_action(self):
         action = myLogic.menu("", ("interact","items","group"))
         if action == 0:
-            for npc in currentZone.npcs:
+            for npc in player.currentZone.npcs:
                 if abs(npc.y - self.y) + abs(npc.x - self.x) == 1:
                     npc.interact(self)
                     break
@@ -125,7 +124,7 @@ class Player:
             
             item = options[item]
             item = item[:item.rfind('x')-1]
-            if not use_item_zone(item, player, currentZone):
+            if not use_item_zone(item, player):
                 myLogic.message("cant use this here!")
         
         if action == 2: # group
@@ -144,7 +143,7 @@ class Player:
         with open(PATH + "/saves.json") as f:
             data = json.load(f)
         data[self.name] = {
-            "zone":currentZone.name,
+            "zone":player.currentZone.name,
             "position":(self.y,self.x),
             "hp":self.max_hp,# - sum(map(lambda x: x[0], self.group.values())),
             "atk":self.atk,# - sum(map(lambda x: x[1], self.group.values())),
@@ -203,7 +202,7 @@ class Npc:
         if interact_type == "rush":
             myLogic.message(self.interact_parameters["text"])
             battle(player, self.interact_parameters["enemy"])
-            currentZone.mapArray.center_camera_on(self.y, self.x)
+            player.currentZone.mapArray.center_camera_on(self.y, self.x)
         
         if interact_type == "transport":
             myLogic.message(self.interact_parameters["text"])
@@ -224,11 +223,16 @@ class Npc:
                 player.max_items += member["bag"]
                 player.show_info()
             myLogic.message(self.interact_parameters["text"])
-            #currentZone.remove_npc(self)
-            
+        
+        if interact_type == "move":
+            player.currentZone = Zone(self.interact_parameters["zone"], player)
+            player.y,player.x = self.interact_parameters["position"]
+            player.currentZone.music.play()
+        
         if "event-flags" in self.interact_parameters:
             for flag,value in self.interact_parameters["event-flags"].items():
                 player.event_flags[flag] = value
+            player.currentZone.reload(player)
 
     def ia_move(self, zone):
         if self.move and random.randrange(2):
@@ -252,7 +256,14 @@ class Zone:
         self.namefile = f"{PATH}/{data['namefile']}"
         self.music = abstract.Sound(f"{PATH}/{data['music']}")
         self.enemies = data["enemies"] # class fighther, load too early?
-        self.doors = dict([(tuple(door["position"]), (door["zone-dst"],door["new-position"])) for door in data["doors"]])
+
+        self.doors = {}
+        for door in data["doors"]:
+            flag_exist = True
+            for flag,value in door["event-conditions"].items():
+                if player.event_flags[flag] != value: flag_exist = False
+            if flag_exist:
+                self.doors[tuple(door["position"])] = (door["zone-dst"],door["new-position"])
         
         self.mapArray = abstract.MapArray(self.namefile, (0,0,10,30), cycle=data["cycle"])
         self.mapArray.special_tiles = data["tiles"]
@@ -267,8 +278,43 @@ class Zone:
                 if player.event_flags[flag] != value: flag_exist = False
             if flag_exist:
                 n = Npc(data_npc)
+                
                 self.mapArray.add_sprite(n.y, n.x, n.id, n.sprite)
                 self.npcs.append(n)
+    
+    def reload(self, player):
+        
+        old_npcs = dict(map(lambda n: (n.id, (n.y, n.x)), self.npcs))
+        with open(PATH + "/zones.json") as f:
+            data = json.load(f)[self.name]
+        
+        self.doors = {}
+        for door in data["doors"]:
+            flag_exist = True
+            for flag,value in door["event-conditions"].items():
+                if player.event_flags[flag] != value: flag_exist = False
+            if flag_exist:
+                self.doors[tuple(door["position"])] = (door["zone-dst"],door["new-position"])
+        
+        self.mapArray = abstract.MapArray(self.namefile, (0,0,10,30), cycle=data["cycle"])
+        self.mapArray.special_tiles = data["tiles"]
+        
+        with open(PATH + "/npcs.json") as f:
+            npcs = json.load(f)[self.name]
+        self.npcs = []
+        
+        for data_npc in npcs:
+            flag_exist = True
+            for flag,value in data_npc["event-conditions"].items():
+                if player.event_flags[flag] != value: flag_exist = False
+            if flag_exist:
+                n = Npc(data_npc)
+                if n.id in old_npcs: n.y, n.x = old_npcs[n.id]
+                self.mapArray.add_sprite(n.y, n.x, n.id, n.sprite)
+                self.npcs.append(n)
+        
+        self.mapArray.add_sprite(player.y, player.x, player, player.sprite)
+
     def remove_npc(self, npc):
         self.npcs.remove(npc)
         del self.mapArray.sprites[npc.id]
@@ -330,7 +376,7 @@ def battle(player, enemy):
             new_enemy = data_enemy["turn"]
             myLogic.message(f"{enemy} turn into... {new_enemy}!")
             enemy = new_enemy
-            with open("enemies.json") as f:
+            with open(PATH + "/enemies.json") as f:
                 data_enemy = json.load(f)[new_enemy]
             max_hp_enemy = data_enemy["hp"]
         if action == "wait":
@@ -359,13 +405,13 @@ def start_management(name):
 
     # ascii
     myLogic = abstract.init_env(meta_data["formats"])
-    currentZone = Zone(data_player["zone"], player)
-    currentZone.mapArray.add_sprite(player.y, player.x, player, player.sprite)
-    currentZone.mapArray.center_camera_on(player.y, player.x)
-    currentZone.music.play()
-    return myLogic, player, currentZone
+    player.currentZone = Zone(data_player["zone"], player)
+    player.currentZone.mapArray.add_sprite(player.y, player.x, player, player.sprite)
+    player.currentZone.mapArray.center_camera_on(player.y, player.x)
+    player.currentZone.music.play()
+    return myLogic, player
 
-def use_item_zone(item, player, currentZone):
+def use_item_zone(item, player):
     with open(PATH+"/items.json") as f:
         data_item = json.load(f)[item]
     if not data_item["zone"]: return False
@@ -406,7 +452,7 @@ def use_item_battle(item, player, data_enemy):
 if 1:
     abstract.Sound.mute = "-mute" in argv
     PATH = input("game folder: ")
-    myLogic,player,currentZone = start_management(input("name player: "))
+    myLogic,player = start_management(input("name player: "))
     flagMove = False
 else:
     abstract.screen.curses.endwin()
@@ -415,11 +461,11 @@ else:
 while player.hp > 0 and not player.event_flags["win"]:
     if flagMove:
         # update zone's npcs
-        for n in currentZone.npcs:
-            n.ia_move(currentZone)
-        currentZone.mapArray.center_camera_on(player.y, player.x)
+        for n in player.currentZone.npcs:
+            n.ia_move(player.currentZone)
+        player.currentZone.mapArray.center_camera_on(player.y, player.x)
     
-    currentZone,flagMove = player.main_control(currentZone)
+    flagMove = player.main_control()
 
 
 if player.hp <= 0:

@@ -1,21 +1,23 @@
 {
     "player":
     {
-        "zone":"world-main",
-        "position":[8,38],
-        "hp":7,
-        "atk":3,
+        "zone":"t-reinhart",
+        "position":[10,10],
+        "hp":50,
+        "atk":10,
         "gold":3,
         "items":[],
         "max-items":10,
         "event-flags":
         {
-            "panther":false,
+            "lenoire":false,
+            "fairy":false,
+            "papas-die":false,
             "timeskip-1":false,
-            "timeskip-2": false,
-            "zenithia-1":true,
-            "zenithia-2":false,
             "wife":false,
+            "timeskip-2": false,
+            "time-fairy":false,
+            "zenithia-drive":false,
             "win":false
         },
         "transports":{},

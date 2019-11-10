@@ -5,7 +5,26 @@
         "atk":1,
         "sprite":"s",
         "gold":1,
-        "actions":["atk"],
+        "actions":["atk", "atk", "atk", "atk", "turn"],
+        "turn":"king-slime",
+        "boss":false
+    },
+    "healer":
+    {
+        "hp":3,
+        "atk":1,
+        "sprite":"s",
+        "gold":1,
+        "actions":["atk", "heal"],
+        "boss":false
+    },
+    "king-slime":
+    {
+        "hp":15,
+        "atk":3,
+        "sprite":"S",
+        "gold":3,
+        "actions":["atk", "atk", "heal"],
         "boss":false
     },
     "skeleton":

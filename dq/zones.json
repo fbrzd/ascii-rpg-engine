@@ -9,106 +9,127 @@
         "doors":
         [
             {
+                "event-conditions":{},
                 "position":[5,30],
                 "zone-dst":"t-santarosa",
                 "new-position":[14,19]
             },
             {
+                "event-conditions":{},
                 "position":[3,22],
                 "zone-dst":"d-lenoire",
                 "new-position":[14,16]
             },
             {
+                "event-conditions":{},
                 "position":[4,42],
                 "zone-dst":"t-reinhart",
-                "new-position":[0,0]
+                "new-position":[14,19]
             },
             {
+                "event-conditions":{},
                 "position":[2,50],
                 "zone-dst":"d-cave",
-                "new-position":[0,0]
+                "new-position":[14,10]
             },
             {
+                "event-conditions":{},
                 "position":[8,37],
                 "zone-dst":"m-port",
                 "new-position":[0,2]
             },
             {
+                "event-conditions":{},
                 "position":[13,42],
                 "zone-dst":"m-nunnery",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[19,6],
                 "zone-dst":"t-salabona",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[22,14],
                 "zone-dst":"d-volcan",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[10,8],
                 "zone-dst":"d-cascade",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[27,52],
                 "zone-dst":"d-path-out",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[25,54],
                 "zone-dst":"d-path-in",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[23,54],
                 "zone-dst":"t-granvania",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[19,50],
                 "zone-dst":"d-tower",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[31,63],
                 "zone-dst":"m-house",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{"zenithia-drive":false},
                 "position":[13,62],
-                "zone-dst":"t-zenithia-1",
-                "new-position":[0,0]
+                "zone-dst":"t-zenithia",
+                "new-position":[14,13]
             },
             {
+                "event-conditions":{},
                 "position":[10,68],
                 "zone-dst":"d-portal-out",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[9,65],
                 "zone-dst":"d-portal-in",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[10,62],
                 "zone-dst":"t-heven",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{"zenithia-drive":true},
                 "position":[30,5],
-                "zone-dst":"t-zenithia-2",
-                "new-position":[0,0]
+                "zone-dst":"t-zenithia",
+                "new-position":[14,13]
             },
             {
+                "event-conditions":{},
                 "position":[31,15],
                 "zone-dst":"d-cascade",
                 "new-position":[0,0]
             },
             {
+                "event-conditions":{},
                 "position":[19,34],
                 "zone-dst":"d-temple",
                 "new-position":[0,0]
@@ -157,6 +178,7 @@
         "doors":
         [
             {
+                "event-conditions":{},
                 "position":[14,19],
                 "zone-dst":"world-main",
                 "new-position":[5,30]
@@ -173,6 +195,7 @@
         "doors":
         [
             {
+                "event-conditions":{},
                 "position":[0,2],
                 "zone-dst":"world-main",
                 "new-position":[8,37]
@@ -183,15 +206,73 @@
     {
         "namefile": "maps/world-main/d-lenoire",
         "music":"music/dungeon.mp3",
-        "tiles":{"#":"col", "W":"hurt", "+":"hurt", ".":"wild","T":"col"},
-        "enemies":["skeleton"],
+        "tiles":{"#":"none", "W":"hurt", "+":"hurt", ".":"wild","T":"col"},
+        "enemies":[],
         "cycle":false,
         "doors":
         [
             {
+                "event-conditions":{},
                 "position":[14,16],
                 "zone-dst":"world-main",
                 "new-position":[3,22]
+            }
+        ]
+    },
+    "t-zenithia":
+    {
+        "namefile": "maps/world-main/t-zenithia",
+        "music":"music/zenithia.mp3",
+        "tiles":{"#":"col", "~":"col","T":"col"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{"zenithia-drive":false},
+                "position":[14,13],
+                "zone-dst":"world-main",
+                "new-position":[13,62]
+            },
+            {
+                "event-conditions":{"zenithia-drive":true},
+                "position":[14,13],
+                "zone-dst":"world-main",
+                "new-position":[30,5]
+            }
+        ]
+    },
+    "t-reinhart":
+    {
+        "namefile": "maps/world-main/t-reinhart",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col","T":"col","~":"col"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[14,19],
+                "zone-dst":"world-main",
+                "new-position":[4,42]
+            }
+        ]
+    },
+    "d-cave":
+    {
+        "namefile": "maps/world-main/d-cave",
+        "music":"music/dungeon.mp3",
+        "tiles":{"#":"col","~":"col",".":"wild","-":"wild"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{"papas-die":false},
+                "position":[14,10],
+                "zone-dst":"world-main",
+                "new-position":[2,50]
             }
         ]
     }

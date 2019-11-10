@@ -1,5 +1,29 @@
 {
-    "world-main":[],
+    "world-main":
+    [
+        {"id":"z-door-1",
+            "position":[13,62],
+            "event-conditions":{"zenithia-drive":false},
+            "sprite":"X",
+            "move":false,
+            "interact":
+            {
+                "type":"none",
+                "text":""
+            }
+        },
+        {"id":"z-door-2",
+            "position":[30,5],
+            "event-conditions":{"zenithia-drive":true},
+            "sprite":"X",
+            "move":false,
+            "interact":
+            {
+                "type":"none",
+                "text":""
+            }
+        }
+    ],
     "world-fairy":[],
     "world-evil":[],
     
@@ -64,7 +88,7 @@
             }
         },
         {"id":"bianca",
-            "position":[10,9],
+            "position":[9,5],
             "event-conditions":{},
             "sprite":"i",
             "move":true,
@@ -137,13 +161,24 @@
         },
         {"id":"king",
             "position":[3,2],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"k",
             "move":false,
             "interact":
             {
                 "type":"talk",
                 "text":"im king erik"
+            }
+        },
+        {"id":"king",
+            "position":[3,2],
+            "event-conditions":{"lenoire":true},
+            "sprite":"k",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"you free the castle!"
             }
         },
         {"id":"queen",
@@ -166,7 +201,8 @@
             {
                 "type":"rush",
                 "text":"im the boss!",
-                "enemy":"slime"
+                "enemy":"slime",
+                "event-flags":{"lenoire":true}
             }
         },
         {"id":"priest",
@@ -178,6 +214,120 @@
             {
                 "type":"heal",
                 "text":"im a healer... ghost..."
+            }
+        }
+    ],
+    "d-cave":
+    [
+        {"id":"henry",
+            "position":[3,29],
+            "event-conditions":{"timeskip-1":false, "papas-die":false},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im henry",
+                "event-flags":{"papas-die":true}
+            }
+        },
+        {"id":"gema",
+            "position":[14,10],
+            "event-conditions":{"papas-die":true},
+            "sprite":"B",
+            "move":false,
+            "interact":
+            {
+                "type":"move",
+                "text":"now you two become slaves for my temple",
+                "zone":"d-temple",
+                "position":[2,2],
+                "event-flags":{"timeskip-1":true,"papas-die":false}
+            }
+        }
+    ],
+    "t-reinhart":
+    [
+        {"id":"king",
+            "position":[1,16],
+            "event-conditions":{},
+            "sprite":"k",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im king"
+            }
+        },
+        {"id":"priest",
+            "position":[11,27],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"heal?"
+            }
+        },
+        {"id":"shop",
+            "position":[11,4],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"shop?"
+            }
+        }
+    ],
+    "t-zenithia":
+    [
+        {"id":"helm",
+            "position":[2,25],
+            "event-conditions":{"zenithia-drive":false},
+            "sprite":"o",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"(drive to zigurath)",
+                "event-flags":{"zenithia-drive":true}
+            }
+        },
+        {"id":"helm",
+            "position":[2,25],
+            "event-conditions":{"zenithia-drive":true},
+            "sprite":"o",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"(drive to heven)",
+                "event-flags":{"zenithia-drive":false}
+            }
+        },
+        {"id":"healer",
+            "position":[8,27],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"healer?"
+            }
+        },
+        {"id":"dragon",
+            "position":[2,15],
+            "event-conditions":{},
+            "sprite":"K",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im king dragon"
             }
         }
     ],
