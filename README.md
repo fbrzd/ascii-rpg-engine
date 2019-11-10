@@ -12,6 +12,7 @@ Minimalist engine writen in python3, library required are:
 Run your own game using:
 - from terminal, using the python's interpreter: python3 rpg-engine.py
 - from terminal, using the compiled program: ./rpg-engine
+
 then input the folder name that contains the game data, and put your player name... that's all!
 
 Make a world just need write json files, plain text for maps and move music in folders. If not want tutorials, see the "own/" folder for a practical guide of a game "complete". Some features common in rpgs:
@@ -130,8 +131,6 @@ soon items...
 - better menu
 - time-flag support, for simulate day/night or events by steps
 - cut-scenes support, like moves scripted
-- lite party-members support
-- colors customized
 
 ### ... Not too soon
 - animations
