@@ -330,67 +330,72 @@ def battle(player, enemy):
     battle_background.add_sprite(2,7,0,data_enemy["sprite"])
     battle_background.set_camera(0,0)
 
+    turns = [0,1]
+    # menu player
     while 1:
-        
         # select action
-        action = myLogic.menu(f"a {enemy}, what does?", ("atk","item","run"))
+        action_p = myLogic.menu(f"a {enemy}, what does?", ("atk","item","run"))
         
-        if action == 1:
+        if action_p == 1:
             if not len(player.items): continue
             options = list(set(player.items))
             options = list(map(lambda x: f"{x} x{player.items.count(x)}", set(player.items)))
             item = myLogic.menu(f"", options)
             if item == -1: continue # back main menu
-            
             item = options[item]
             item = item[:item.rfind('x')-1]
-            if not use_item_battle(item, player, data_enemy):
-                myLogic.message("cant use this in battle!")
-        if action == 2 or action == -1:
+        
+        if action_p == 2 or action_p == -1:
             if random.randrange(2) and not data_enemy["boss"]:
                 myLogic.message("you flee way...")
-                break
+                return 0
             else: myLogic.message("cant flee!")
-        if action == 0:
-            damage = int(player.atk * random.uniform(0.7, 1.3))
-            data_enemy["hp"] -= damage
-            myLogic.message(f"you hit {enemy}, {damage} hp!")
-        
-        # here ends all player's actions
-        if data_enemy["hp"] <= 0: break
-        
-        action = random.choice(data_enemy["actions"])
-        
-        if action == "atk":
-            damage = int(data_enemy["atk"] * random.uniform(0.7, 1.3))
-            player.hp -= damage
-            player.show_info()
-            myLogic.message(f"{enemy} hit you {damage} hp!")
-        if action == "heal":
-            data_enemy["hp"] = min(data_enemy["hp"] + max_hp_enemy//2, max_hp_enemy)
-            myLogic.message(f"{enemy} heal his wound")
-        if action == "run":
-            myLogic.message(f"{enemy} flees away")
-            break
-        if action == "turn":
-            new_enemy = data_enemy["turn"]
-            myLogic.message(f"{enemy} turn into... {new_enemy}!")
-            enemy = new_enemy
-            with open(PATH + "/enemies.json") as f:
-                data_enemy = json.load(f)[new_enemy]
-            max_hp_enemy = data_enemy["hp"]
-        if action == "wait":
-            myLogic.message(f"{enemy} is waiting...")
+            
+        # menu enemy
+        action_e = random.choice(data_enemy["actions"])
 
-        # here ends all enemy's actions
-        if player.hp <= 0: break
-    
-    # define end battle
-    if player.hp > 0 and data_enemy["hp"] <= 0:
-        player.gold += data_enemy["gold"]
-        myLogic.message(f"win! you earn {data_enemy['gold']} gold!")
-        return 1
-    return 0
+        random.shuffle(turns)
+        for i in turns:
+            # player
+            if i == 0:
+                if action_p == 0:
+                    damage = int(player.atk * random.uniform(0.7, 1.3))
+                    data_enemy["hp"] -= damage
+                    myLogic.message(f"you hit {enemy}, {damage} hp!")
+                if action_p == 1:
+                    if not use_item_battle(item, player, data_enemy):
+                        myLogic.message("cant use this in battle!")
+            # enemy
+            if i == 1:
+                if action_e == "atk":
+                    damage = int(data_enemy["atk"] * random.uniform(0.7, 1.3))
+                    player.hp -= damage
+                    player.show_info()
+                    myLogic.message(f"{enemy} hit you {damage} hp!")
+                if action_e == "heal":
+                    data_enemy["hp"] = min(data_enemy["hp"] + max_hp_enemy//2, max_hp_enemy)
+                    myLogic.message(f"{enemy} heal his wound")
+                if action_e == "run":
+                    myLogic.message(f"{enemy} flees away")
+                    break
+                if action_e == "turn":
+                    new_enemy = data_enemy["turn"]
+                    myLogic.message(f"{enemy} turn into... {new_enemy}!")
+                    enemy = new_enemy
+                    with open(PATH + "/enemies.json") as f:
+                        data_enemy = json.load(f)[new_enemy]
+                    max_hp_enemy = data_enemy["hp"]
+                if action_e == "wait":
+                    myLogic.message(f"{enemy} is waiting...")
+
+            # player win
+            if player.hp > 0 and data_enemy["hp"] <= 0:
+                player.gold += data_enemy["gold"]
+                myLogic.message(f"win! you earn {data_enemy['gold']} gold!")
+                return 1
+            
+            # player lose
+            if player.hp <= 0: return 0
 
 def start_management(name):
     with open(PATH + "/saves.json") as f:
