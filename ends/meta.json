@@ -1,0 +1,40 @@
+{
+    "player":
+    {
+        "zone":"world",
+        "position":[30,17],
+        "hp":7,
+        "atk":3,
+        "money":3,
+        "items":["lunch","lunch","lunch","lunch","lunch","lunch","wing"],
+        "max-items":10,
+        "max-group":3,
+        "event-flags":
+        {
+            "win":false
+        },
+        "transports":{},
+        "group":[]
+    },
+    "music-die":"music/die.mp3",
+    "music-win":"music/win.mp3",
+
+    "formats":
+    {
+        "T": {"font":"green", "back":"black", "attrs":[]},
+        "Y": {"font":"yellow", "back":"black", "attrs":[]},
+        "~": {"font":"cyan", "back":"black", "attrs":[]},
+        "A": {"font":"white", "back":"black", "attrs":["underline","dim"]},
+        "-": {"font":"yellow", "back":"black", "attrs":["dim"]},
+        "W": {"font":"red", "back":"black", "attrs":["bold","blink"]},
+        "X": {"font":"red", "back":"black", "attrs":[]},
+        "O": {"font":"red", "back":"black", "attrs":["dim"]},
+        "S": {"font":"cyan", "back":"black", "attrs":["bold"]},
+        "s": {"font":"cyan", "back":"black", "attrs":[]},
+        
+        "p": {"font":"green", "back":"black", "attrs":[]},
+        "i": {"font":"magenta", "back":"black", "attrs":[]},
+        "h": {"font":"cyan", "back":"black", "attrs":[]},
+        "b": {"font":"red", "back":"black", "attrs":[]}
+    }
+}

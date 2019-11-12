@@ -12,9 +12,11 @@ class Player:
         self.max_hp = meta_data_json["hp"]
         self.hp = meta_data_json["hp"]
         self.atk = meta_data_json["atk"]
-        self.gold = meta_data_json["gold"]
+        self.money = meta_data_json["money"]
         self.items = meta_data_json["items"]
+
         self.max_items = meta_data_json["max-items"]
+        self.max_group = meta_data_json["max-group"]
         
         self.event_flags = meta_data_json["event-flags"]
         self.transports = meta_data_json["transports"]
@@ -104,10 +106,10 @@ class Player:
         infos = [f"{self.name}:",
                  f"hp  {self.hp}/{self.max_hp}",
                  f"atk {self.atk}",
-                 f"$   {self.gold}",
+                 f"$   {self.money}",
                  "",
                  f"items {len(self.items)}/{self.max_items}",
-                 f"group {len(self.group)}"]
+                 f"group {len(self.group)}/{self.max_group}"]
         myLogic.information(infos)
     def menu_action(self):
         action = myLogic.menu("", ("interact","items","group"))
@@ -124,12 +126,10 @@ class Player:
             
             item = options[item]
             item = item[:item.rfind('x')-1]
-            if not use_item_zone(item, player):
-                myLogic.message("cant use this here!")
-        
+            use_item_zone(item, player)
         if action == 2: # group
             with open(PATH + "/npcs.json") as f:
-                all_members = json.load(f)["members-group"]
+                all_members = json.load(f)["group-members"]
             for name_member,data_member in all_members.items():
                 if name_member in self.group:
                     flag_exist = True
@@ -139,6 +139,19 @@ class Player:
                         if flag_exist:
                             myLogic.message(f"{name_member}: {chat['text']}")
 
+    def add_member(self, name_member):
+            if len(player.group) < player.max_group:# and name_member not in player.group:
+                with open(PATH + "/npcs.json") as f:
+                    member = json.load(f)["group-members"][name_member]
+                player.group.append(name_member)
+                player.max_hp += member["hp"]
+                player.hp += member["hp"]
+                player.atk += member["atk"]
+                player.max_items += member["bag"]
+                player.money += member["money"]
+                myLogic.message(f"{name_member} joins to group!")
+            else: myLogic.message("group full...!")
+            player.show_info()
     def save(self):
         with open(PATH + "/saves.json") as f:
             data = json.load(f)
@@ -147,15 +160,44 @@ class Player:
             "position":(self.y,self.x),
             "hp":self.max_hp,# - sum(map(lambda x: x[0], self.group.values())),
             "atk":self.atk,# - sum(map(lambda x: x[1], self.group.values())),
-            "gold":self.gold,
+            "money":self.money,
             "items":self.items,
-            "max-items":self.max_items,# - sum(map(lambda x: x[2], self.group.values())),
+            "max-items":self.max_items,
+            "max-group":self.max_group,
             "event-flags":self.event_flags,
             "transports":self.transports,
             "group":self.group
         }
         with open(PATH + "/saves.json", 'w') as f:
             json.dump(data, f)
+
+class Enemy:
+    def __init__(self, name, battle_background):
+        with open(PATH + "/enemies.json") as f:
+            data_enemy = json.load(f)[name]
+        
+        self.name = name
+        self.hp = data_enemy["hp"]
+        self.max_hp = self.hp
+        self.atk = data_enemy["atk"]
+        self.money = data_enemy["money"]
+        self.actions = data_enemy["actions"]
+        self.flags = data_enemy["flags"]
+
+        # posible turn
+        if "turn" in data_enemy: self.turn = data_enemy["turn"]
+        
+        # check group
+        if "group" in self.flags:
+            self.hp = 0
+            self.atk = 0
+            with open(PATH + "/enemies.json") as f:
+                all_data = json.load(f)
+            for i,e in enumerate(data_enemy["group"]):
+                battle_background.add_sprite(2, 7 - len(data_enemy["group"])//2 + i, i, all_data[e]["sprite"])
+                self.hp += all_data[e]["hp"]
+                self.atk += all_data[e]["atk"]
+        else: battle_background.add_sprite(2, 7, 0, data_enemy["sprite"])
 
 class Npc:
     def __init__(self, json_data):
@@ -186,18 +228,35 @@ class Npc:
         if interact_type == "shop":
             o = myLogic.menu(self.interact_parameters["text"], ("yes", "no"))
             if o == 0:
-                if player.gold < self.interact_parameters["cost"]: myLogic.message("not have enough gold...!")
+                if player.money < self.interact_parameters["cost"]: myLogic.message("not have enough $...!")
                 else:
                     # item
                     if self.interact_parameters["property"] == "item":
                         if len(player.items) < player.max_items:
                             player.items.append(self.interact_parameters["item"])
-                            player.gold -= self.interact_parameters["cost"]
+                            player.money -= self.interact_parameters["cost"]
                         else: myLogic.message("your bag is full...!")
                     # atk
-                    if self.interact_parameters["property"] == "atk": player.atk = self.interact_parameters["atk-value"]
+                    if self.interact_parameters["property"] == "atk":
+                        player.atk = self.interact_parameters["value"]
+                        player.money -= self.interact_parameters["cost"]
                     # hp
-                    if self.interact_parameters["property"] == "hp": player.max_hp = self.interact_parameters["hp-value"]
+                    if self.interact_parameters["property"] == "hp":
+                        player.max_hp = self.interact_parameters["value"]
+                        player.money -= self.interact_parameters["cost"]
+                    # money (if need?)
+                    if self.interact_parameters["property"] == "money":
+                        player.money += self.interact_parameters["value"]
+                    # max-items:
+                    if self.interact_parameters["property"] == "max-items":
+                        player.max_items = self.interact_value["value"]
+                        player.money -= self.interact_parameters["cost"]
+                    # max-group
+                    if self.interact_parameters["property"] == "max-group":
+                        player.max_group = self.interact_parameters["value"]
+                        player.money -= self.interact_parameters["cost"]
+                    # group-member
+                    pass
 
         if interact_type == "rush":
             myLogic.message(self.interact_parameters["text"])
@@ -211,22 +270,14 @@ class Npc:
 
         if interact_type == "group":
             name_member = self.interact_parameters["member"]
-            if name_member not in player.group:
-                with open(PATH + "/npcs.json") as f:
-                    member = json.load(f)["members-group"][name_member]
-                
-                
-                player.group.append(name_member)
-                player.max_hp += member["hp"]
-                player.hp += member["hp"]
-                player.atk += member["atk"]
-                player.max_items += member["bag"]
-                player.show_info()
             myLogic.message(self.interact_parameters["text"])
+            player.add_member(name_member)
         
         if interact_type == "move":
+            myLogic.message(self.interact_parameters["text"])
             player.currentZone = Zone(self.interact_parameters["zone"], player)
             player.y,player.x = self.interact_parameters["position"]
+            player.currentZone.mapArray.add_sprite(player.y,player.x,player,player.sprite)
             player.currentZone.music.play()
         
         if "event-flags" in self.interact_parameters:
@@ -319,22 +370,19 @@ class Zone:
         self.npcs.remove(npc)
         del self.mapArray.sprites[npc.id]
 
-#119
-def battle(player, enemy):
-    player.last_battle = 0
-    with open(PATH + "/enemies.json") as f:
-        data_enemy = json.load(f)[enemy]
-    max_hp_enemy = data_enemy["hp"]
-
+# aux functions
+def battle(player, name_enemy):
+    # init background
     battle_background = abstract.MapArray(camera=(2,7,6,17),cycle=True)
-    battle_background.add_sprite(2,7,0,data_enemy["sprite"])
+    
+    player.last_battle = 0
+    enemy = Enemy(name_enemy, battle_background)
     battle_background.set_camera(0,0)
 
     turns = [0,1]
-    # menu player
     while 1:
         # select action
-        action_p = myLogic.menu(f"a {enemy}, what does?", ("atk","item","run"))
+        action_p = myLogic.menu(f"a {enemy.name}, what does?", ("atk","item","run"))
         
         if action_p == 1:
             if not len(player.items): continue
@@ -346,13 +394,13 @@ def battle(player, enemy):
             item = item[:item.rfind('x')-1]
         
         if action_p == 2 or action_p == -1:
-            if random.randrange(2) and not data_enemy["boss"]:
+            if random.randrange(2) and "boss" not in enemy.flags:
                 myLogic.message("you flee way...")
                 return 0
             else: myLogic.message("cant flee!")
             
         # menu enemy
-        action_e = random.choice(data_enemy["actions"])
+        action_e = random.choice(enemy.actions)
 
         random.shuffle(turns)
         for i in turns:
@@ -360,38 +408,38 @@ def battle(player, enemy):
             if i == 0:
                 if action_p == 0:
                     damage = int(player.atk * random.uniform(0.7, 1.3))
-                    data_enemy["hp"] -= damage
-                    myLogic.message(f"you hit {enemy}, {damage} hp!")
+                    enemy.hp -= damage
+                    myLogic.message(f"you hit {enemy.name} {damage} hp!")
                 if action_p == 1:
-                    if not use_item_battle(item, player, data_enemy):
-                        myLogic.message("cant use this in battle!")
+                    use_item_battle(item, player, enemy)
+                
             # enemy
             if i == 1:
                 if action_e == "atk":
-                    damage = int(data_enemy["atk"] * random.uniform(0.7, 1.3))
+                    damage = int(enemy.atk * random.uniform(0.7, 1.3))
                     player.hp -= damage
                     player.show_info()
-                    myLogic.message(f"{enemy} hit you {damage} hp!")
+                    myLogic.message(f"{enemy.name} hit you {damage} hp!")
                 if action_e == "heal":
-                    data_enemy["hp"] = min(data_enemy["hp"] + max_hp_enemy//2, max_hp_enemy)
-                    myLogic.message(f"{enemy} heal his wound")
+                    enemy.hp = min(enemy.hp + enemy.max_hp//2, enemy.max_hp)
+                    myLogic.message(f"{enemy.name} heals!")
                 if action_e == "run":
-                    myLogic.message(f"{enemy} flees away")
-                    break
+                    myLogic.message(f"{enemy.name} flees away")
+                    return 0
                 if action_e == "turn":
-                    new_enemy = data_enemy["turn"]
-                    myLogic.message(f"{enemy} turn into... {new_enemy}!")
-                    enemy = new_enemy
-                    with open(PATH + "/enemies.json") as f:
-                        data_enemy = json.load(f)[new_enemy]
-                    max_hp_enemy = data_enemy["hp"]
+                    battle_background.sprites = {}
+                    myLogic.message(f"{enemy.name} turn into... {enemy.turn}!")
+                    current_hp = enemy.hp
+                    enemy = Enemy(enemy.turn, battle_background)
+                    enemy.hp = current_hp
+                    battle_background.set_camera(0,0)
                 if action_e == "wait":
-                    myLogic.message(f"{enemy} is waiting...")
+                    myLogic.message(f"{enemy.name} is waiting...")
 
             # player win
-            if player.hp > 0 and data_enemy["hp"] <= 0:
-                player.gold += data_enemy["gold"]
-                myLogic.message(f"win! you earn {data_enemy['gold']} gold!")
+            if player.hp > 0 and enemy.hp <= 0:
+                player.money += enemy.money
+                myLogic.message(f"win! you earn ${enemy.money}!")
                 return 1
             
             # player lose
@@ -417,9 +465,12 @@ def start_management(name):
     return myLogic, player
 
 def use_item_zone(item, player):
+    myLogic.message(f"use {item}...")
     with open(PATH+"/items.json") as f:
         data_item = json.load(f)[item]
-    if not data_item["zone"]: return False
+    if not data_item["zone"]:
+        myLogic.message("cant use this here!")
+        return False
     
     t = data_item["type"]
     if t == "repel":
@@ -429,40 +480,61 @@ def use_item_zone(item, player):
         tmp = min(player.max_hp, player.hp + data_item["value"])
         myLogic.message(f"heal {tmp-player.hp} hp!")
         player.hp = tmp
+    if t == "back":
+        with open(PATH + "/saves.json") as f:
+            saves_data = json.load(f)
+        if player.name in saves_data:
+            myLogic.message("back to last checkpoint!")
+            data_player = saves_data[player.name]
+            player.y,player.x = data_player["position"]
+            player.currentZone = Zone(data_player["zone"], player)
+            player.currentZone.mapArray.add_sprite(player.y, player.x, player, player.sprite)
+            player.currentZone.mapArray.center_camera_on(player.y, player.x)
+            player.currentZone.music.play()
+        else:
+            myLogic.message("not saved yet...")
     
     # check uses
     player.items.remove(item)
     player.show_info()
     return True
 
-def use_item_battle(item, player, data_enemy):
+def use_item_battle(item, player, enemy):
+    myLogic.message(f"use {item}...")
     with open(PATH+"/items.json") as f:
         data_item = json.load(f)[item]
-    if not data_item["battle"]: return False
+    if not data_item["battle"]:
+        myLogic.message("cant use this here!")
+        return False
     
     t = data_item["type"]
     if t == "hit":
-        data_enemy["hp"] -= data_item["value"]
-        myLogic.message(f"cause {data_item['value']} damage to the enemy!")
+        enemy.hp -= data_item["value"]
+        myLogic.message(f"cause {data_item['value']} damage to enemy!")
     if t == "heal":
         tmp = min(player.max_hp, player.hp + data_item["value"])
         myLogic.message(f"heal {tmp-player.hp} hp!")
         player.hp = tmp
+    if t == "catch":
+        if "catch" not in enemy.flags:
+            myLogic.message(f"{item} not works on {enemy.name}...?")
+        elif random.randrange(100) < data_item["value"]:
+            player.add_member(enemy.name)
+            enemy.hp = 0
+            enemy.money = 0
+        else: myLogic.message("...fail!")
 
     # check uses
     player.items.remove(item)
     player.show_info()
     return True
 
-if 1:
-    abstract.Sound.mute = "-mute" in argv
-    PATH = input("game folder: ")
-    myLogic,player = start_management(input("name player: "))
-    flagMove = False
-else:
-    abstract.screen.curses.endwin()
-    print("error! syntax: python3 game.py <folder-data> <name player>")
+abstract.Sound.mute = "-mute" in argv
+PATH = input("game folder: ")
+myLogic,player = start_management(input("name player: "))
+flagMove = False
 
+# main loop
 while player.hp > 0 and not player.event_flags["win"]:
     if flagMove:
         # update zone's npcs
@@ -472,7 +544,7 @@ while player.hp > 0 and not player.event_flags["win"]:
     
     flagMove = player.main_control()
 
-
+# end
 if player.hp <= 0:
     with open(PATH + "/meta.json") as f:
         abstract.Sound(PATH + '/' + json.load(f)["music-die"]).play()

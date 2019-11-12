@@ -9,7 +9,7 @@
     "spell":
     {
         "type":"hit",
-        "value":10,
+        "value":12,
         "zone":false,
         "battle":true
     },

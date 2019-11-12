@@ -5,7 +5,7 @@ mkdir $1/music
 touch $1/meta.json
 touch $1/zones.json
 touch $1/npcs.json
-touch $1/monsters.json
+touch $1/enemies.json
 touch $1/items.json
 touch $1/saves.json
 

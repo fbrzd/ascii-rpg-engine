@@ -1,8 +1,8 @@
 {
     "player":
     {
-        "zone":"t-reinhart",
-        "position":[10,10],
+        "zone":"m-port",
+        "position":[8,12],
         "hp":50,
         "atk":10,
         "gold":3,

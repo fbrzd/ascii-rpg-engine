@@ -1,0 +1,1 @@
+{"fzio": {"zone": "world", "position": [30, 14], "hp": 9, "atk": 5, "money": 3, "items": ["lunch", "lunch", "lunch"], "max-items": 11, "max-group": 3, "event-flags": {"win": false}, "transports": {}, "group": ["borongo"]}}

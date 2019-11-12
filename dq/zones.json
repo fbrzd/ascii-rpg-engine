@@ -42,7 +42,7 @@
                 "event-conditions":{},
                 "position":[13,42],
                 "zone-dst":"m-nunnery",
-                "new-position":[0,0]
+                "new-position":[11,13]
             },
             {
                 "event-conditions":{},
@@ -273,6 +273,52 @@
                 "position":[14,10],
                 "zone-dst":"world-main",
                 "new-position":[2,50]
+            }
+        ]
+    },
+    "d-temple-1":
+    {
+        "namefile": "maps/world-main/d-temple-1",
+        "music":"music/dungeon.mp3",
+        "tiles":{"#":"col", "A":"col", "W":"hurt"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            
+        ]
+    },
+    "d-temple-2":
+    {
+        "namefile": "maps/world-main/d-temple-2",
+        "music":"music/dungeon.mp3",
+        "tiles":{"#":"col", "A":"col", "W":"hurt", "-":"wild"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[14,16],
+                "zone-dst":"world-main",
+                "new-position":[]
+            }
+        ]
+    },
+    "m-nunnery":
+    {
+        "namefile": "maps/world-main/m-nunnery",
+        "music":"music/water.mp3",
+        "tiles":{"#":"col"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[11,13],
+                "zone-dst":"world-main",
+                "new-position":[13,42]
             }
         ]
     }

@@ -1,0 +1,37 @@
+{
+    "world":[
+        {"id":"test-heal",
+            "position":[30,13],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"im a test healer, heal?"
+            }
+        }
+    ],
+    "town-1":[],
+    "town-2":[],
+    "town-3":[],
+    "town-4":[],
+    "town-5":[],
+
+    "group-members":
+    {
+        "borongo":{
+            "hp":2,
+            "atk":2,
+            "bag":1,
+            "money":0,
+            "chats":
+            [
+                {
+                    "event-conditions":{},
+                    "text":"nyaaa..."
+                }
+            ]
+        }
+    }
+}

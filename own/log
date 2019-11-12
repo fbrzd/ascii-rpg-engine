@@ -23,12 +23,12 @@ xxxx  7   3
 gobl  2   1   1
 slug  4   3   2
 xxxx  11  6
-*spe      10  5
-gole  10  4   4
-*pot  15      3
+*spe      12  5
+gole  10  3   3
+*pot  15      4
 sold  20  7   0
-xxxx  30  15  
-evil  40  12  0
+xxxx  30  15
+evil  40  10  0
 --------------------------------------
 p player   i human    h healer
 b buy      y mermaid  k king

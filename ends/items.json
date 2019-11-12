@@ -1,0 +1,13 @@
+{
+    "lunch":{
+        "type":"catch",
+        "value": 40,
+        "zone": false,
+        "battle": true
+    },
+    "wing":{
+        "type":"back",
+        "zone":true,
+        "battle":false
+    }
+}

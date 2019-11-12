@@ -128,7 +128,7 @@
             "interact":
             {
                 "type":"talk",
-                "text":"im the king... if you want our fire sword, defeat that soldier & come back later!"
+                "text":"im the king... if you want our legend fire sword, defeat that soldier!"
             }
         },
         {
@@ -251,10 +251,10 @@
             "interact":
             {
                 "type":"shop",
-                "text":"im the elder mermaid... i made this potions... 5 gold for one...?",
+                "text":"im the elder mermaid... i made this potions... 4 gold for one...?",
                 "property":"item",
                 "item":"potion",
-                "cost":5,
+                "cost":4,
                 "event-flags": {"potions":true}
             }
         },
@@ -513,7 +513,7 @@
             }
         }
     ],
-    "members-group":
+    "group-members":
     {
         
     }

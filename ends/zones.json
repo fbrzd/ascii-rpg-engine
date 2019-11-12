@@ -1,0 +1,36 @@
+{
+    "world":
+    {
+        "namefile": "maps/world",
+        "music":"music/desert-town.wav",
+        "tiles":{"A":"col", "W":"hurt", "~":"col", "-":"wild"},
+        "enemies":["group-slimes", "borongo", "borongo"],
+        "cycle":true,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[0,6],
+                "zone-dst":"town",
+                "new-position":[7,0]
+            }
+        ]
+    },
+    "town":
+    {
+        "namefile": "maps/town",
+        "music":"music/dung1.wav",
+        "tiles":{"#":"col"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[7,0],
+                "zone-dst":"world",
+                "new-position":[20,104]
+            }
+        ]
+    }
+}
