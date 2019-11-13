@@ -162,9 +162,9 @@ class Logic:
     def message(self, text):
         y,x,ly,lx = self.message_box
         index_remain_text = 0
-        while index_remain_text != None:
-            index_remain_text = SCREEN.put_text(y+1, x+1, ly-2, lx-2, text[index_remain_text:])
-            #print(text[index_remain_text:])
+        while index_remain_text < len(text):
+            index_remain_text += SCREEN.put_text(y+1, x+1, ly-2, lx-2, text[index_remain_text:])
+            #print(index_remain_text, text[index_remain_text:])
             while 1:
                 key = SCREEN.getkey()
                 if key == self.button_accept or key == self.button_cancel: break

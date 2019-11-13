@@ -21,7 +21,18 @@ class Player:
         self.event_flags = meta_data_json["event-flags"]
         self.transports = meta_data_json["transports"]
         self.group = meta_data_json["group"]
-
+        
+        self.hp_bonus = 0
+        self.atk_bonus = 0
+        self.items_bonus = 0
+        with open(PATH + "/npcs.json") as f:
+            all_members = json.load(f)["group-members"]
+        for m in self.group:
+            self.hp_bonus = all_members[m]["hp"]
+            self.atk_bonus = all_members[m]["atk"]
+            self.items_bonus = all_members[m]["bag"]
+        
+        self.max_hp = self.hp
         self.last_battle = 0
         self.repel_flag = 0
 
@@ -143,11 +154,18 @@ class Player:
             if len(player.group) < player.max_group:# and name_member not in player.group:
                 with open(PATH + "/npcs.json") as f:
                     member = json.load(f)["group-members"][name_member]
+                
                 player.group.append(name_member)
                 player.max_hp += member["hp"]
                 player.hp += member["hp"]
+                player.hp_bonus += member["hp"]
+                
                 player.atk += member["atk"]
+                player.atk_bonus += member["atk"]
+                
                 player.max_items += member["bag"]
+                player.items_bonus += member["bag"]
+                
                 player.money += member["money"]
                 myLogic.message(f"{name_member} joins to group!")
             else: myLogic.message("group full...!")
@@ -238,18 +256,18 @@ class Npc:
                         else: myLogic.message("your bag is full...!")
                     # atk
                     if self.interact_parameters["property"] == "atk":
-                        player.atk = self.interact_parameters["value"]
+                        player.atk = self.interact_parameters["value"] + player.atk_bonus
                         player.money -= self.interact_parameters["cost"]
                     # hp
                     if self.interact_parameters["property"] == "hp":
-                        player.max_hp = self.interact_parameters["value"]
+                        player.max_hp = self.interact_parameters["value"] + player.hp_bonus
                         player.money -= self.interact_parameters["cost"]
                     # money (if need?)
                     if self.interact_parameters["property"] == "money":
                         player.money += self.interact_parameters["value"]
                     # max-items:
                     if self.interact_parameters["property"] == "max-items":
-                        player.max_items = self.interact_value["value"]
+                        player.max_items = self.interact_value["value"] + player.items_bonus
                         player.money -= self.interact_parameters["cost"]
                     # max-group
                     if self.interact_parameters["property"] == "max-group":

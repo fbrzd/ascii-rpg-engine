@@ -1,66 +1,84 @@
 {
-    "slime":
-    {
+    "slime":{
         "hp":2,
         "atk":1,
         "sprite":"s",
-        "gold":1,
-        "actions":["atk", "atk", "atk", "atk", "turn"],
-        "turn":"king-slime",
-        "boss":false
+        "money":1,
+        "actions":["atk","atk","run"],
+        "flags":["catch"]
     },
-    "healer":
-    {
+    "group-slimes":{
+        "hp":0,
+        "atk":0,
+        "sprite":"",
+        "money":0,
+        "actions":["atk","turn"],
+        "turn":"king-slime",
+        "flags":["group"],
+        "group":["slime","slime","slime"]
+    },
+    "healer":{
         "hp":3,
         "atk":1,
         "sprite":"s",
-        "gold":1,
+        "money":1,
         "actions":["atk", "heal"],
-        "boss":false
+        "flags":[]
     },
-    "king-slime":
-    {
-        "hp":15,
-        "atk":3,
+    "king-slime":{
+        "hp":10,
+        "atk":5,
         "sprite":"S",
-        "gold":3,
+        "money":3,
         "actions":["atk", "atk", "heal"],
-        "boss":false
+        "flags":[]
     },
-    "skeleton":
-    {
-        "hp":6,
+    "guard":{
+        "hp":10,
+        "atk":3,
+        "money":1,
+        "sprite":"f",
+        "actions":["atk","wait"],
+        "flags":[]
+    },
+    "skeleton":{
+        "hp":5,
         "atk":2,
         "sprite":"q",
-        "gold":2,
+        "money":0,
         "actions":["atk"],
-        "boss":false
+        "flags":[]
     },
-    "wyvern":
-    {
+    "wyvern":{
         "hp":7,
         "atk":2,
         "sprite":"w",
-        "gold":2,
-        "action":["atk","heal"],
-        "boss":false
+        "money":2,
+        "actions":["atk","atk","heal"],
+        "flags":[]
     },
-    "golem":
-    {
+    "golem":{
         "hp":12,
         "atk":5,
         "sprite":"m",
-        "gold":4,
+        "money":4,
         "actions":["atk","atk","wait"],
-        "boss":false
+        "flags":[]
     },
-    "dragon":
-    {
+    "mage":{
+        "hp":7,
+        "atk":2,
+        "money":2,
+        "sprite":"r",
+        "actions":["atk","atk","heal"],
+        "flags":[]
+    },
+    "dragon":{
         "hp":20,
         "atk":7,
         "sprite":"i",
-        "gold":0,
+        "money":0,
         "actions":["atk"],
-        "boss":true
+        "flags":["boss"]
     }
 }

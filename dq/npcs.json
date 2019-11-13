@@ -22,12 +22,21 @@
                 "type":"none",
                 "text":""
             }
+        },
+        {"id":"nunnery-door",
+            "position":[13,42],
+            "event-conditions":{"timeskip-1":true},
+            "sprite":"x",
+            "move":false,
+            "interact":
+            {
+                "type":"none",
+                "text":""
+            }
         }
     ],
-    "world-fairy":[],
     "world-evil":[],
-    
-    "t-santarosa":
+    "t-santarosa-1":
     [
         {"id":"priest",
             "position":[1,12],
@@ -37,7 +46,7 @@
             "interact":
             {
                 "type":"heal",
-                "text":"heal & save?"
+                "text":"tired of play with bianca, boy? rest a bit here..."
             }
         },
         {"id":"weapon-1",
@@ -48,32 +57,32 @@
             "interact":
             {
                 "type":"shop",
-                "text":"weapon 1",
+                "text":"the papas's son! have this weapon especially for you: 5 atk for $6",
                 "property":"atk",
-                "atk-value":4,
-                "cost":5
+                "value":5,
+                "cost":6
             }
         },
         {"id":"papas",
             "position":[3,26],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"i",
             "move":false,
             "interact":
             {
                 "type":"talk",
-                "text":"papas: son, care yourself"
+                "text":"papas: son, care yourself and dont forget back to sleep when you are tired"
             }
         },
         {"id":"papas-go",
             "position":[3,26],
-            "event-conditions":{"lenoire":true,"fairy":true},
+            "event-conditions":{"lenoire":true},
             "sprite":"i",
             "move":false,
             "interact":
             {
                 "type":"move",
-                "text":"son, we must go to east... the price of reinhart has been rapted. sleep until we arrive",
+                "text":"papas: son, we must go to east... the prince of reinhart has been rapted. sleep until we arrive",
                 "zone":"t-reinhart",
                 "position":[13,15]
             }
@@ -86,23 +95,12 @@
             "interact":
             {
                 "type":"talk",
-                "text":"im sancho"
-            }
-        },
-        {"id":"info1",
-            "position":[9,14],
-            "event-conditions":{},
-            "sprite":"i",
-            "move":false,
-            "interact":
-            {
-                "type":"talk",
-                "text":"its so cold..."
+                "text":"sancho: young master, im serve with all my hearth to your father and you"
             }
         },
         {"id":"bianca",
             "position":[9,5],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"i",
             "move":true,
             "interact":
@@ -111,15 +109,75 @@
                 "text":"bianca: that bully says: \"when lenoire castle its free of ghost, im free this cat\", we should go to west!"
             }
         },
-        {"id":"info2",
+        {"id":"bianca",
+            "position":[9,5],
+            "event-conditions":{"lenoire":true},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"bianca: you did it! now borongo can go along you! ...borongo? i gave that name to the cat! ha ha"
+            }
+        },
+        {"id":"info1",
             "position":[13,6],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"i",
             "move":false,
             "interact":
             {
                 "type":"talk",
-                "text":"ha ha ha! this cat make fun cries"
+                "text":"ha ha ha! this cat make fun cries!"
+            }
+        },
+        {"id":"info1",
+            "position":[13,6],
+            "event-conditions":{"lenoire":true,"borongo":false},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"group",
+                "text":"s-so you free the castle of ghosts!? o-ok, take the cat.. now im boring...",
+                "member":"borongo",
+                "event-flags":{"borongo":true}
+            }
+        },
+        {"id":"borongo",
+            "position":[13,5],
+            "event-conditions":{"borongo":false},
+            "sprite":"n",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"grrrr..."
+            }
+        }
+    ],
+    "t-santarosa-2":
+    [
+        {"id":"priest",
+            "position":[1,12],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"are you who was play with bianca!? please let me heal your wounds"
+            }
+        },
+        {"id":"info1",
+            "position":[7,16],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"long time ago, a group of fanatics came and destroy the town... some people were able to escape"
             }
         }
     ],
@@ -127,24 +185,48 @@
     [
         {"id":"info1",
             "position":[6,11],
-            "event-conditions":{},
+            "event-conditions":{"timeskip-1":false},
             "sprite":"i",
             "move":false,
             "interact":
             {
                 "type":"talk",
-                "text":"old man port!"
+                "text":"your father starts a travel when you were just a baby... now are back!"
             }
         },
         {"id":"info2",
             "position":[7,5],
-            "event-conditions":{},
+            "event-conditions":{"timeskip-1":false},
             "sprite":"i",
             "move":true,
             "interact":
             {
                 "type":"talk",
-                "text":"wife port"
+                "text":"the town of santa-rosa place to north, your father is waiting for you..."
+            }
+        },
+        {"id":"info1",
+            "position":[6,11],
+            "event-conditions":{"timeskip-1":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"move",
+                "text":"dont worry son, i can carry you to other place... there you will find a rich man who was friend of your father: ludman!",
+                "zone":"world-main",
+                "position":[18,9]
+            }
+        },
+        {"id":"info2",
+            "position":[7,5],
+            "event-conditions":{"timeskip-1":true},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"i cant believe! the papas's son! how years have been passed...?"
             }
         }
     ],
@@ -152,35 +234,35 @@
     [
         {"id":"info1",
             "position":[1,7],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"q",
             "move":true,
             "interact":
             {
                 "type":"talk",
-                "text":"skeleton1"
+                "text":"a mage revived us to play & dance again!"
             }
         },
         {"id":"info2",
             "position":[8,19],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"q",
             "move":true,
             "interact":
             {
                 "type":"talk",
-                "text":"skeleton2"
+                "text":"you will beat that mage!? a brat from east try it before you, but was too weak! ha ha"
             }
         },
         {"id":"king",
             "position":[3,2],
             "event-conditions":{"lenoire":false},
-            "sprite":"k",
+            "sprite":"y",
             "move":false,
             "interact":
             {
                 "type":"talk",
-                "text":"im king erik"
+                "text":"a mage came to our castle and begun his experiments... cant rest in peace..."
             }
         },
         {"id":"king",
@@ -191,30 +273,41 @@
             "interact":
             {
                 "type":"talk",
-                "text":"you free the castle!"
+                "text":"thanks, you free the castle!"
             }
         },
         {"id":"queen",
             "position":[3,4],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
+            "sprite":"y",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"we are the king & queen of this castle... the ghost of them..."
+            }
+        },
+        {"id":"queen",
+            "position":[3,4],
+            "event-conditions":{"lenoire":true},
             "sprite":"k",
             "move":false,
             "interact":
             {
                 "type":"talk",
-                "text":"im queen sofia"
+                "text":"the skeletons get out soon... thanks, boy..."
             }
         },
         {"id":"boss",
             "position":[1,16],
-            "event-conditions":{},
+            "event-conditions":{"lenoire":false},
             "sprite":"B",
             "move":false,
             "interact":
             {
                 "type":"rush",
-                "text":"im the boss!",
-                "enemy":"slime",
+                "text":"too late for back, little boy!",
+                "enemy":"mage",
                 "event-flags":{"lenoire":true}
             }
         },
@@ -226,7 +319,7 @@
             "interact":
             {
                 "type":"heal",
-                "text":"im a healer... ghost..."
+                "text":"maybe im a ghost...? trust in me for heals you...?"
             }
         }
     ],
@@ -240,8 +333,30 @@
             "interact":
             {
                 "type":"talk",
-                "text":"im henry",
+                "text":"henry: you are the son of that barbarian papas? ok... guess i can follow you...",
                 "event-flags":{"papas-die":true}
+            }
+        },
+        {"id":"papas",
+            "position":[7,10],
+            "event-conditions":{"timeskip-1":false,"papas-die":false},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"papas: that boy henry must be here, look a little more..."
+            }
+        },
+        {"id":"papas-die",
+            "position":[11,11],
+            "event-conditions":{"papas-die":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"papas: s-son... this guy is t-too dangerous... im d-dying..."
             }
         },
         {"id":"gema",
@@ -252,9 +367,9 @@
             "interact":
             {
                 "type":"move",
-                "text":"now you two become slaves for my temple",
+                "text":"now that your father have been died... you two become slaves for my temple",
                 "zone":"d-temple-1",
-                "position":[2,2],
+                "position":[4,3],
                 "event-flags":{"timeskip-1":true,"papas-die":false}
             }
         }
@@ -269,7 +384,7 @@
             "interact":
             {
                 "type":"talk",
-                "text":"im king"
+                "text":"the brave papas was go to rescue the prince! will you go too?"
             }
         },
         {"id":"priest",
@@ -280,7 +395,7 @@
             "interact":
             {
                 "type":"heal",
-                "text":"heal?"
+                "text":"want help your father? then heal your wound first"
             }
         },
         {"id":"shop",
@@ -290,8 +405,47 @@
             "move":false,
             "interact":
             {
+                "type":"shop",
+                "text":"you are in a quest? ha ha! take this herbs curative... would be useful, $4",
+                "property":"item",
+                "item":"herb",
+                "cost":4
+            }
+        },
+        {"id":"tamer",
+            "position":[10,18],
+            "event-conditions":{"timeskip-1":true},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"i-im a monster tamer! try to g-give this to monsters in a b-battle, $6",
+                "property":"item",
+                "item":"lure",
+                "cost":6
+            }
+        },
+        {"id":"info1",
+            "position":[3,26],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
                 "type":"talk",
-                "text":"shop?"
+                "text":"the prince its so annoying... you really want rescue him?"
+            }
+        },
+        {"id":"info2",
+            "position":[10,12],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"be careful when you step on the swamp... need hp for enter and quit"
             }
         }
     ],
@@ -346,17 +500,84 @@
     ],
     "d-temple-1":
     [
-        {"id":"help",
+        {"id":"henry",
             "position":[3,29],
-            "event-conditions":{},
+            "event-conditions":{"temple":false},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"henry: hey... all this years as slave make me think about the reigns, his problems and my fault in your father's death... sorry"
+            }
+        },
+        {"id":"henry",
+            "position":[3,29],
+            "event-conditions":{"temple":true},
             "sprite":"i",
             "move":false,
             "interact":
             {
                 "type":"move",
-                "text":"i help you!",
+                "text":"henry: finally! with this plan we can escape... shhh! we just should hide us in the trash and drift away from this mountain... ready? go!",
                 "zone":"m-nunnery",
                 "position":[5,6]
+            }
+        },
+        {"id":"info1",
+            "position":[3,17],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"wow... you have been 10 years here! i would have given up..."
+            }
+        },
+        {"id":"info2",
+            "position":[11,12],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"the guard say that we building a temple... for what?"
+            }
+        },
+        {"id":"info3",
+            "position":[7,22],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im so hungry..."
+            }
+        },
+        {"id":"info4",
+            "position":[5,11],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"did you have a friend in your town? after 10 years maybe forget you..."
+            }
+        },
+        {"id":"guard",
+            "position":[14,16],
+            "event-conditions":{},
+            "sprite":"f",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"not even think in escape, dirty slave!",
+                "event-flags":{"temple":true}
             }
         }
     ],
@@ -373,12 +594,241 @@
             "interact":
             {
                 "type":"heal",
-                "text":"heal?"
+                "text":"here can rest while we heal your wounds..."
+            }
+        },
+        {"id":"info1",
+            "position":[6,17],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"the time has passed, but your friends still must remember you... go to north, you will reach the port and santa-rosa town"
+            }
+        },
+        {"id":"info2",
+            "position":[4,6],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"henry go before you sleep, says \"i will claim my reign, hope someday can visit me\""
             }
         }
     ],
-    "members-group":
+    "t-salabona":
+    [
+        {"id":"priest",
+            "position":[2,20],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "interact":
+            {
+                "type":"heal",
+                "text":"heal?"
+            }
+        },
+        {"id":"ludman",
+            "position":[4,1],
+            "event-conditions":{"ship":false},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"transport",
+                "text":"ludman: so, are you the son of papas...? in the past, we both traveled in search of the 3 rings that would help fight the evil priest, gema... take this ship, its the minimum i can give to the son of papas",
+                "transport":["~","wild","P"],
+                "event-flags":{"ship":true}
+            }
+        },
+        {"id":"ludman",
+            "position":[4,1],
+            "event-conditions":{"ship":true, "wedding":false},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"ludman: one ring lies in the volcano to east, other in the northern cascade... the third is a misterious..."
+            }
+        },
+        {"id":"ludman",
+            "position":[4,7],
+            "event-conditions":{"wedding":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"ludman: young man, i want gift you a wedding as your father would have wanted... too i know that did you meet bianca... then choice! my daughter flora (left) or your friend bianca (right)?"
+            }
+        },
+        {"id":"flora",
+            "position":[1,9],
+            "event-conditions":{"wife":false},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"flora: im the ludman's daugther... he says me that a brave warrior like you should have a devoted wife... someone like me...?"
+            }
+        },
+        {"id":"shop",
+            "position":[10,9],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "interact":
+            {
+                "type":"shop",
+                "text":"im sell this armor",
+                "property":"hp",
+                "value":12,
+                "cost":15
+            }
+        },
+        {"id":"info1",
+            "position":[4,25],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"you looks a lot like the king friend of ludman, the king papas!"
+            }
+        },
+        {"id":"info2",
+            "position":[9,21],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"i heard that a temple of fanatics are be building in some place of this world..."
+            }
+        },
+        {"id":"flora",
+            "position":[1,2],
+            "event-conditions":{"wedding":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"group",
+                "text":"flora: oh god! i-i never think my love was reciprocated! i promise b-be a devoted wife, my love",
+                "member":"flora",
+                "event-flags":{"wedding":false, "wife":true, "flora":true}
+            }
+        },
+        {"id":"bianca",
+            "position":[1,4],
+            "event-conditions":{"wedding":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"group",
+                "text":"bianca: r-really you choice me!? i dont know what say...! all that i can promise is more adventures! ha ha!",
+                "member":"bianca",
+                "event-flags":{"wedding":false, "wife":true, "bianca":true}
+            }
+        },
+        {"id":"flora",
+            "position":[1,9],
+            "event-conditions":{"wife":true, "bianca":true},
+            "sprite":"i",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"..."
+            }
+        }
+    ],
+    "d-volcano":[],
+    "d-cascade":
+    [
+        {"id":"bianca",
+            "position":[4,33],
+            "event-conditions":{"wedding":false, "wife":false},
+            "sprite":"i",
+            "move":true,
+            "interact":
+            {
+                "type":"talk",
+                "text":"bianca: ...! its you!? the papas's son...!? i think you were dead... me? im here for adventures! you too? then lets go together!",
+                "event-flags":{"wedding":true}
+            }
+        },
+        {"id":"ring",
+            "position":[13,15],
+            "event-conditions":{"ring-1":false},
+            "sprite":"o",
+            "move":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"(its the water ring!)",
+                "event-flags":{"ring-1":true}
+            }
+        }
+    ],
+    "d-path":[],
+    "d-portal":[],
+    "d-zigurat":[],
+    "group-members":
     {
-        "borongo":{}
+        "borongo":{
+            "hp":1,
+            "atk":1,
+            "bag":0,
+            "money":0,
+            "chats":[
+                {
+                    "event-conditions":{},
+                    "text":"nyaaa..."
+                },
+                {
+                    "event-conditions":{"timeskip-1":true, "temple":false},
+                    "text":"g-grr (borongo need water...)"
+                }
+            ]
+        },
+        "bianca":{
+            "hp":0,
+            "atk":2,
+            "bag":1,
+            "money":0,
+            "chats":[]
+        },
+        "flora":{
+            "hp":1,
+            "atk":1,
+            "bag":0,
+            "money":7,
+            "chats":[]
+        },
+        "childs":{
+            "hp":1,
+            "atk":1,
+            "bag":1,
+            "money":1,
+            "chats":[]
+        },
+        "sancho":{
+            "hp":1,
+            "atk":1,
+            "bag":1,
+            "money":1,
+            "chats":[]
+        }
     }
 }

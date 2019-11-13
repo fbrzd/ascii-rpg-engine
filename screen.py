@@ -83,7 +83,7 @@ class Screen:
             line += 1
             if line == limit_y: return i
         self.scr.addstr(pos_y + line, pox_x, text[i:])
-        return None
+        return len(text)
     def clear_box(self, pos_y, pos_x, len_y, len_x):
         for i in range(len_y):
             self.scr.addstr(pos_y + i, pos_x,' '*len_x)

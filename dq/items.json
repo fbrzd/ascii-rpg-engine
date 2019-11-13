@@ -6,10 +6,24 @@
         "zone":true,
         "battle":true
     },
-    "spell":
+    "sage-stone":
+    {
+        "type":"heal",
+        "value":20,
+        "zone":true,
+        "battle":true
+    },
+    "spell-a":
     {
         "type":"hit",
         "value":10,
+        "zone":false,
+        "battle":true
+    },
+    "spell-b":
+    {
+        "type":"hit",
+        "value":20,
         "zone":false,
         "battle":true
     },
@@ -19,5 +33,18 @@
         "value":30,
         "zone":true,
         "battle":false
+    },
+    "wing":
+    {
+        "type":"back",
+        "zone":true,
+        "battle":false
+    },
+    "lure":
+    {
+        "type":"catch",
+        "value":50,
+        "zone":false,
+        "battle":true
     }
 }

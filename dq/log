@@ -1,18 +1,15 @@
-1 lenoire
-2 borongo
-3 fairy
-x travel
-4 rescue henry
+1 lenoire [borongo]
+x travel santarosa-reinhart
+2 rescue henry <timeskip-1>
 
-5 nunnery
-6 port
-x travel
-7 volcan
-8 cascade [bianca]
-9 ship
-10 granvania
-11 tower
+x travel temple-nunnery <catch monsters>
+x travel port-?
+3 volcan
+4 cascade [wife]
+6 granvania
+7 tower <timeskip-2>
 
-12 zenithia
-13 fairy-time
-14 
+8 zenithia [childs]
+9 zigurat <dragon>
+10 temple [bianca]
+11 evil-world

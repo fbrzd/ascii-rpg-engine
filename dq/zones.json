@@ -4,14 +4,20 @@
         "namefile":"maps/world-main/world",
         "music":"music/5-overworld-gbc.mp3",
         "tiles":{"A":"col", "~":"col", ".":"wild", "T":"wild", "-":"wild","+":"hurt"},
-        "enemies":["slime","slime","slime","skeleton"],
+        "enemies":["slime","slime","slime","wyvern"],
         "cycle":true,
         "doors":
         [
             {
-                "event-conditions":{},
+                "event-conditions":{"timeskip-1":false},
                 "position":[5,30],
-                "zone-dst":"t-santarosa",
+                "zone-dst":"t-santarosa-1",
+                "new-position":[14,19]
+            },
+            {
+                "event-conditions":{"timeskip-1":true},
+                "position":[5,30],
+                "zone-dst":"t-santarosa-2",
                 "new-position":[14,19]
             },
             {
@@ -39,7 +45,7 @@
                 "new-position":[0,2]
             },
             {
-                "event-conditions":{},
+                "event-conditions":{"timeskip-1":true},
                 "position":[13,42],
                 "zone-dst":"m-nunnery",
                 "new-position":[11,13]
@@ -48,19 +54,19 @@
                 "event-conditions":{},
                 "position":[19,6],
                 "zone-dst":"t-salabona",
-                "new-position":[0,0]
+                "new-position":[6,32]
             },
             {
                 "event-conditions":{},
                 "position":[22,14],
-                "zone-dst":"d-volcan",
-                "new-position":[0,0]
+                "zone-dst":"d-volcano",
+                "new-position":[10,19]
             },
             {
                 "event-conditions":{},
                 "position":[10,8],
                 "zone-dst":"d-cascade",
-                "new-position":[0,0]
+                "new-position":[1,2]
             },
             {
                 "event-conditions":{},
@@ -93,7 +99,7 @@
                 "new-position":[0,0]
             },
             {
-                "event-conditions":{"zenithia-drive":false},
+                "event-conditions":{"timeskip-2":true, "zenithia-drive":false},
                 "position":[13,62],
                 "zone-dst":"t-zenithia",
                 "new-position":[14,13]
@@ -112,12 +118,12 @@
             },
             {
                 "event-conditions":{},
-                "position":[10,62],
+                "position":[10,61],
                 "zone-dst":"t-heven",
                 "new-position":[0,0]
             },
             {
-                "event-conditions":{"zenithia-drive":true},
+                "event-conditions":{"timeskip-2":true, "zenithia-drive":true},
                 "position":[30,5],
                 "zone-dst":"t-zenithia",
                 "new-position":[14,13]
@@ -132,22 +138,6 @@
                 "event-conditions":{},
                 "position":[19,34],
                 "zone-dst":"d-temple",
-                "new-position":[0,0]
-            }
-        ]
-    },
-    "world-fairy":
-    {
-        "namefile":"maps/world-fairy/world",
-        "music":"music/5-overworld-gbc.mp3",
-        "tiles":{"A":"col", "~":"col", ".":"wild", "T":"wild",":":"wild"},
-        "enemies":[],
-        "cycle":false,
-        "doors":
-        [
-            {
-                "position":[0,0],
-                "zone-dst":"world-main",
                 "new-position":[0,0]
             }
         ]
@@ -168,11 +158,27 @@
             }
         ]
     },
-    "t-santarosa":
+    "t-santarosa-1":
     {
-        "namefile": "maps/world-main/t-santarosa",
+        "namefile": "maps/world-main/t-santarosa-1",
         "music":"music/town.mp3",
-        "tiles":{"#":"col", "W":"hurt"},
+        "tiles":{"#":"col", "W":"hurt", "T":"col"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[14,19],
+                "zone-dst":"world-main",
+                "new-position":[5,30]
+            }
+        ]
+    },
+    "t-santarosa-2":{
+        "namefile":"maps/world-main/t-santarosa-2",
+        "music":"music/die.mp3",
+        "tiles":{"#":"col", "T":"col", "W":"hurt", "+":"hurt"},
         "enemies":[],
         "cycle":false,
         "doors":
@@ -206,8 +212,8 @@
     {
         "namefile": "maps/world-main/d-lenoire",
         "music":"music/dungeon.mp3",
-        "tiles":{"#":"none", "W":"hurt", "+":"hurt", ".":"wild","T":"col"},
-        "enemies":[],
+        "tiles":{"#":"col", "W":"hurt", "+":"hurt", ".":"wild","T":"col"},
+        "enemies":["skeleton"],
         "cycle":false,
         "doors":
         [
@@ -264,7 +270,7 @@
         "namefile": "maps/world-main/d-cave",
         "music":"music/dungeon.mp3",
         "tiles":{"#":"col","~":"col",".":"wild","-":"wild"},
-        "enemies":[],
+        "enemies":["guard"],
         "cycle":false,
         "doors":
         [
@@ -279,7 +285,7 @@
     "d-temple-1":
     {
         "namefile": "maps/world-main/d-temple-1",
-        "music":"music/dungeon.mp3",
+        "music":"music/die.mp3",
         "tiles":{"#":"col", "A":"col", "W":"hurt"},
         "enemies":[],
         "cycle":false,
@@ -319,6 +325,98 @@
                 "position":[11,13],
                 "zone-dst":"world-main",
                 "new-position":[13,42]
+            }
+        ]
+    },
+    "t-salabona":{
+        "namefile":"maps/world-main/t-salabona",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col", "T":"col", "~":"col"},
+        "enemies":[],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[6,32],
+                "zone-dst":"world-main",
+                "new-position":[19,6]
+            }
+        ]
+    },
+    "d-cascade":{
+        "namefile":"maps/world-main/d-cascade",
+        "music":"music/dungeon.mp3",
+        "tiles":{"A":"col","~":"col","-":"wild"},
+        "enemies":["mage","skeleton"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[1,2],
+                "zone-dst":"world-main",
+                "new-position":[10,8]
+            }
+        ]
+    },
+    "d-volcano":{
+        "namefile":"maps/world-main/d-volcano",
+        "music":"music/dungeon.mp3",
+        "tiles":{"A":"col", "W":"hurt", "-":"wild", "~":"heal"},
+        "enemies":["mage","skeleton"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[10,19],
+                "zone-dst":"world-main",
+                "new-position":[22,14]
+            }
+        ]
+    },
+    "d-path":{
+        "namefile":"maps/world-main/d-path",
+        "music":"music/dungeon.mp3",
+        "tiles":{},
+        "enemies":["group-slimes", "mage"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[22,3],
+                "zone-dst":"world-main",
+                "new-position":[27,52]
+            },
+            {
+                "event-conditions":{},
+                "position":[0,30],
+                "zone-dst":"world-main",
+                "new-position":[25,54]
+            }
+        ]
+    },
+    "d-portal":{
+        "namefile":"maps/world-main/d-portal",
+        "music":"music/dungeon.mp3",
+        "tiles":{},
+        "enemies":["golem","group-slimes"],
+        "cycle":false,
+        "doors":
+        [
+            {
+                "event-conditions":{},
+                "position":[],
+                "zone-dst":"world-main",
+                "new-position":[10,68]
+            },
+            {
+                "event-conditions":{},
+                "position":[],
+                "zone-dst":"world-main",
+                "new-position":[9,65]
             }
         ]
     }

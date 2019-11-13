@@ -3,20 +3,25 @@
     {
         "zone":"m-port",
         "position":[8,12],
-        "hp":50,
-        "atk":10,
-        "gold":3,
+        "hp":7,
+        "atk":3,
+        "money":2,
         "items":[],
-        "max-items":10,
+        "max-items":5,
+        "max-group":5,
         "event-flags":
         {
             "lenoire":false,
-            "fairy":false,
+            "borongo":false,
             "papas-die":false,
             "timeskip-1":false,
+            "temple":false,
+            "ship":false,
+            "wedding":false,
             "wife":false,
+            "bianca":false,
+            "flora":false,
             "timeskip-2": false,
-            "time-fairy":false,
             "zenithia-drive":false,
             "win":false
         },
@@ -40,6 +45,7 @@
         "X": {"font":"red", "back":"black", "attrs":[]},
         "O": {"font":"red", "back":"black", "attrs":["dim"]},
         "&": {"font":"green", "back":"black", "attrs":[]},
+        "|": {"font":"yellow", "back":"black", "attrs":[]},
 
         "M": {"font":"yellow", "back":"black", "attrs":[]},
         
@@ -51,6 +57,9 @@
         "g": {"font":"green", "back":"black", "attrs":[]},
         "m": {"font":"yellow","back":"black", "attrs":[]},
         "w": {"font":"blue","back":"black", "attrs":[]},
-        "B": {"font":"magenta", "back":"black", "attrs":["dim"]}
+        "B": {"font":"red", "back":"black", "attrs":["bold"]},
+        "k": {"font":"yellow", "back":"black", "attrs":["bold"]},
+        "r": {"font":"red", "back":"black", "attrs":[]}
+        
     }
 }
