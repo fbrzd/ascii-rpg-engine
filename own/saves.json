@@ -1,1 +1,76 @@
-{"fzio": {"zone": "town-3", "position": [11, 26], "hp": 30, "atk": 15, "gold": 6, "items": ["potion", "potion", "potion", "potion", "potion"], "max-items": 10, "event-flags": {"ship": true, "potions": true, "find": true, "sword": true, "win": false}, "transports": {"~": ["wild", "s"], "T": ["heal", "t"]}, "group": []}}
+{
+    "fzio": {
+        "atk": 15,
+        "bag": 10,
+        "class": [
+            "waifu"
+        ],
+        "event-flags": {
+            "find": true,
+            "potions": true,
+            "ship": true,
+            "sword": true,
+            "win": false
+        },
+        "group": [
+            "waifu"
+        ],
+        "hp": 35,
+        "items": [
+            "potion",
+            "potion",
+            "potion",
+            "potion",
+            "potion"
+        ],
+        "max-group": 0,
+        "money": 1,
+        "position": [
+            11,
+            26
+        ],
+        "singles": [],
+        "sprite": "p",
+        "transports": {
+            "T": [
+                "heal",
+                "t"
+            ],
+            "~": [
+                "wild",
+                "s"
+            ]
+        },
+        "zone": "town-3"
+    },
+    "new": {
+        "atk": 3,
+        "bag": 10,
+        "class": [],
+        "event-flags": {
+            "find": false,
+            "potions": false,
+            "ship": true,
+            "sword": false,
+            "win": false
+        },
+        "group": [],
+        "hp": 30,
+        "items": [],
+        "max-group": 3,
+        "money": 0,
+        "position": [
+            2,
+            4
+        ],
+        "singles": [],
+        "sprite": "p",
+        "transports": {
+            "~": [
+                "wild",
+                "s"
+            ]
+        },
+        "zone": "town-5"
+    }
+}

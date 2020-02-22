@@ -1,0 +1,106 @@
+{
+    "meta":
+    {
+        "namefile": "maps/town-2",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col", "~":"col", "W":"hurt"},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[14,16],
+            "zone-dst":"overworld",
+            "new-position":[6,59]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "boss-sword",
+            "position":[1,18],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"rush",
+                "text":"if you cant defeat me, better forget the swamp!",
+                "enemy":"soldier",
+                "event-flags":{"sword":true},
+                "ask":true
+            }
+        },
+        {
+            "id": "info1",
+            "position":[8,16],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"this town buy weapons & shields to dymz, the best blacksmith!"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[12,27],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"we chased treants for his magic, but the maze forest was unbreakable"
+            }
+        },
+        {
+            "id": "king",
+            "position":[1,16],
+            "event-conditions":{"sword":false},
+            "sprite":"k",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im the king... if you want our legend fire sword, defeat that soldier!"
+            }
+        },
+        {
+            "id": "king",
+            "position":[1,16],
+            "event-conditions":{"sword":true},
+            "sprite":"k",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"your strength has been proved! take this weapon and rescue this lands!",
+                "give":"atk:15",
+                "take":"null",
+                "ask":false
+            }
+        },
+        {
+            "id": "info3",
+            "position":[11,4],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"our soldiers are the best! but even them... sometimes die"
+            }
+        }
+    ]
+}

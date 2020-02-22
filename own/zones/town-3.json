@@ -1,0 +1,106 @@
+{
+    "meta":
+    {
+        "namefile": "maps/town-3",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col", "~":"col"},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[4,0],
+            "zone-dst":"overworld",
+            "new-position":[10,45]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "shop-atk",
+            "position":[10,16],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"this sword came from the army town aside to the mountains, 6 atk for 8 gold?",
+                "give":"atk:6",
+                "take":"money:8",
+                "ask":true
+            }
+        },
+        {
+            "id": "shop-hp",
+            "position":[10,19],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"this old armor can raise your hp to 11, just for 5 gold",
+                "give":"hp:11",
+                "take":"money:5",
+                "ask":true
+            }
+        },
+        {
+            "id": "info1",
+            "position":[9,2],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"that northern swamp appears recently, could be dangerous"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[3,14],
+            "event-conditions":{"ship":false},
+            "sprite":"i",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"long time ago a ship crushed where now place the swamp..."
+            }
+        },
+        {
+            "id": "info2",
+            "position":[3,14],
+            "event-conditions":{"ship":true},
+            "sprite":"i",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"that is the ship! please go to the west, there should be information"
+            }
+        },
+        {
+            "id": "priest",
+            "position":[11,27],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"save",
+                "text":"outside are only goblins, but remember rest when you arrive to a town"
+            }
+        }
+    ]
+}

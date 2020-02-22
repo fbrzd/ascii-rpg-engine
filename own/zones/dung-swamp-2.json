@@ -1,0 +1,37 @@
+{
+    "meta":{
+        "namefile": "maps/dung-swamp-2",
+        "music":"music/dungeon-final.mp3",
+        "tiles":{"#":"col", "+":"hurt", "T":"wild", ".":"wild"},
+        "enemies":["slug"],
+        "cycle":true
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[12,28],
+            "zone-dst":"dung-swamp-1",
+            "new-position":[12,28]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "boss",
+            "position":[5,17],
+            "event-conditions":{},
+            "sprite":"B",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"rush",
+                "text":"after you die, nobody will can stop me!",
+                "enemy":"evil-king",
+                "event-flags":{"win":true},
+                "ask":false
+            }
+        }
+    ]   
+}

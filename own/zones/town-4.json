@@ -1,0 +1,90 @@
+{
+    "meta":{
+        "namefile": "maps/town-4",
+        "music":"music/mermaid.mp3",
+        "tiles":{"#":"col", "A":"col"},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[13,29],
+            "zone-dst":"overworld",
+            "new-position":[18,16]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "mermaid1",
+            "position":[2,3],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"im the elder mermaid... i made this potions... 4 gold for one...?",
+                "take":"money:4",
+                "give":"item:potion",
+                "ask":true,
+                "event-flags": {"potions":true}
+            }
+        },
+        {
+            "id": "mermaid2",
+            "position":[4,6],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"the elder's potions heals hp in travels or battles, take many!"
+            }
+        },
+        {
+            "id": "mermaid3",
+            "position":[9,23],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"i haven't seen a human in a long time... this is the mermaid town!"
+            }
+        },
+        {
+            "id": "mermaid4",
+            "position":[12,12],
+            "event-conditions":{},
+            "sprite":"y",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"save",
+                "text":"wow, you went through that tunnel? allow me care your wounds"
+            }
+        },
+        {
+            "id": "wise",
+            "position":[2,25],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"im a wise, listen! search the treants in the northern forest..."
+            }
+        }
+    ]
+}

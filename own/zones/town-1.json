@@ -1,0 +1,104 @@
+{
+    "meta":
+    {
+        "namefile": "maps/town-1",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col", "~":"col", "W":"hurt"},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[10,15],
+            "zone-dst":"overworld",
+            "new-position":[8,12]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "info1",
+            "position":[3,8],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"in a far continent appears a swamp that is the door to the evil reign!"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[3,10],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"one wise traveled to the northern continent to ask for help from the mermaids"
+            }
+        },
+        {
+            "id": "info3",
+            "position":[11,5],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"i lost my ship when travel in a far continent... then a swamp was begin to create!"
+            }
+        },
+        {
+            "id": "shop-spell",
+            "position":[10,25],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"one treant give me this battle-spell, now i need sell it... 5 gold?",
+                "give":"item:spell",
+                "take":"money:5",
+                "ask":true
+            }
+        },
+        {
+            "id": "priest",
+            "position":[2,28],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"save",
+                "text":"this town of wise try to keep the peace, can i heal your wounds?"
+            }
+        },
+        {
+            "id": "child-treant",
+            "position":[12,28],
+            "event-conditions":{"find":false},
+            "sprite":"T",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"w-what!? you find m-me! i must c-come back...!",
+                "event-flags":{"find":true}
+            }
+        }
+    ]
+}

@@ -1,13 +1,14 @@
 {
     "player":
     {
+        "sprite":"p",
         "zone":"town-3",
         "position":[7,17],
         "hp":7,
         "atk":3,
-        "gold":3,
-        "items":[],
-        "max-items":10,
+        "money":3,
+        "bag":10,
+        
         "event-flags":
         {
             "ship":false,
@@ -16,8 +17,13 @@
             "sword":false,
             "win":false
         },
+        
+        "items":[],
+        "class":[],
         "transports":{},
-        "group":[]
+        "max-group":3,
+        "group":[],
+        "singles":[]
     },
 
     "music-die":"music/die.mp3",
@@ -45,5 +51,13 @@
         "g": {"font":"green", "back":"black", "attrs":[]},
         "l": {"font":"magenta", "back":"black", "attrs":[]},
         "B": {"font":"magenta", "back":"black", "attrs":["dim"]}
+    },
+
+    "battle":
+    {
+        "weaks":{
+            "ice":["fire"],
+            "light":["dark"]
+        }
     }
 }

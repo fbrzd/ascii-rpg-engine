@@ -4,7 +4,8 @@
         "hp":2,
         "atk":1,
         "sprite":"g",
-        "gold":1,
+        "money":1,
+        "class":"monster",
         "actions":["atk"],
         "flags":[]
     },
@@ -13,7 +14,8 @@
         "hp":4,
         "atk":3,
         "sprite":"l",
-        "gold":2,
+        "money":2,
+        "class":"monster",
         "actions":["atk","run"],
         "flags":[]
     },
@@ -22,7 +24,8 @@
         "hp":10,
         "atk":3,
         "sprite":"m",
-        "gold":3,
+        "money":3,
+        "class":"monster",
         "actions":["atk","atk","wait"],
         "flags":[]
     },
@@ -31,7 +34,8 @@
         "hp":20,
         "atk":7,
         "sprite":"i",
-        "gold":0,
+        "money":0,
+        "class":"monster",
         "actions":["atk","atk","heal"],
         "flags":["boss"]
     },
@@ -40,8 +44,27 @@
         "hp":40,
         "atk":10,
         "sprite":"B",
-        "gold":0,
+        "money":0,
+        "class":"monster",
         "actions":["atk","atk","atk","atk","heal","wait"],
         "flags":["boss"]
+    },
+    "waifu":
+    {
+        "hp":5,
+        "atk":2,
+        "money":0,
+        "bag":0,
+        "class":"waifu",
+        "chats":[
+            {
+                "event-conditions":{},
+                "text":"im your waifu..."
+            },
+            {
+                "event-conditions":{"ship":true},
+                "text":"let's fuck!"
+            }
+        ]
     }
 }

@@ -1,0 +1,93 @@
+{
+    "meta":
+    {
+        "namefile": "maps/town-5",
+        "music":"music/town.mp3",
+        "tiles":{"#":"col", "~":"col", "A":"col"},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[0,14],
+            "zone-dst":"overworld",
+            "new-position":[30,35]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "priest",
+            "position":[2,3],
+            "event-conditions":{},
+            "sprite":"h",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"save",
+                "text":"the tunnel is very large... better care your wound before go..."
+            }
+        },
+        {
+            "id": "shop-repel",
+            "position":[4,26],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"armor? i sell this monsters repelent... free 30 steps, just 4 gold...?",
+                "take":"money:4",
+                "give":"item:repel",
+                "ask":true
+            }
+        },
+        {
+            "id": "dymz",
+            "position":[10,24],
+            "event-conditions":{},
+            "sprite":"b",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"deal",
+                "text":"im dymz, the best blacksmith... you want my armor? its 20 gold...",
+                "take":"money:20",
+                "give":"hp:30",
+                "ask":true
+            }
+        },
+        {
+            "id": "info1",
+            "position":[6,14],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":true,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"here lives the famous blacksmith, dymz!"
+            }
+        },
+        {
+            "id": "info2",
+            "position":[12,8],
+            "event-conditions":{},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"long time ago humans, mermaids & treants lived in peace together..."
+            }
+        }
+    ]
+}

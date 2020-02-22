@@ -1,0 +1,53 @@
+{
+    "meta":{
+        "namefile": "maps/dung-tunnel",
+        "music":"music/dungeon.mp3",
+        "tiles":{"A":"col", "-":"wild","~":"col"},
+        "enemies":["goblin","golem","golem"],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[21,11],
+            "zone-dst":"overworld",
+            "new-position":[26,13]
+        },
+        {
+            "event-conditions":{},
+            "position":[0,46],
+            "zone-dst":"overworld",
+            "new-position":[23,19]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "adventurer",
+            "position":[20,14],
+            "event-conditions":{"potions":false},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"this tunnel is full of hard golems! stock up in the eastern town"
+            }
+        },
+        {
+            "id": "adventurer",
+            "position":[20,14],
+            "event-conditions":{"potions":true},
+            "sprite":"i",
+            "move":false,
+            "single":false,
+            "interact":
+            {
+                "type":"talk",
+                "text":"you met the mermaids!? i plan to stay there forever je je"
+            }
+        }
+    ]
+}
