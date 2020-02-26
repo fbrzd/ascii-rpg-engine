@@ -2,7 +2,6 @@ import abstract
 import json
 from sys import argv,exit
 import random
-from npc import Npc
 
 class Player:
     def __init__(self, name, meta_data_json):
@@ -81,6 +80,10 @@ class Player:
                 tmp_sprite = self.sprite
 
             # effects by tile
+            for n in self.npcs:
+                if new_y == n.y and new_x == n.x and "block" in n.flags: current_tile_tag = "col"
+                if abs(new_y - n.y) + abs(new_x - n.x) <= 1 and "auto" in n.flags: n.interact(self)
+        
             if current_tile_tag != "col":
                 flagMove = abs(self.y - new_y) + abs(self.x - new_x) > 0
                 self.y, self.x = new_y,new_x
@@ -236,8 +239,9 @@ class Npc:
         self.id = json_data["id"]
         self.y, self.x = json_data["position"]
         self.sprite = json_data["sprite"]
-        self.move = json_data["move"]
-        self.single = json_data["single"]
+        #self.move = json_data["move"]
+        #self.single = json_data["single"]
+        self.flags = json_data["flags"] # move, tool, block, single, auto
         self.interact_parameters = json_data["interact"]
     
     def interact(self, player):
@@ -322,6 +326,7 @@ class Npc:
                 player.last_battle = 0
                 player.repel_flag = 0
                 player.poison_flag = 0
+                player.save()
                 # reload
                 player.currentZone.music.play()
                 player.currentZone.mapArray.add_sprite(player.y,player.x,player,player.sprite)
@@ -330,23 +335,16 @@ class Npc:
         if interact_type == "luck":
             pass # random effect from list (interact recursive?) # maybe games generic: cards, pachisi, tracks, slot-machines
 
-        if interact_type == "tool":
-            aux = self.interact_parameters["type"]
-            self.interact_parameters["type"] = self.interact_parameters["sub-type"]
-            interact(player)
-            self.interact_parameters["type"] = aux
-            #interact_done == False
-
         if interact_done and "event-flags" in self.interact_parameters:
             for flag,value in self.interact_parameters["event-flags"].items():
                 player.event_flags[flag] = value
             player.currentZone.reload(player)
-        if interact_done and self.single:
+        if interact_done and "single" in self.flags:
             player.singles.append(self.id)
             player.currentZone.reload(player)
 
     def ia_move(self, zone):
-        if self.move and random.randrange(2):
+        if "move" in self.flags and random.randrange(2):
             if random.randrange(2):
                 if random.randrange(2) and zone.mapArray.check_tile(self.y + 1, self.x) != "col":
                     self.y = (self.y + 1 + zone.mapArray.y) % zone.mapArray.y
@@ -425,6 +423,13 @@ class Zone:
         self.npcs.remove(npc)
         del self.mapArray.sprites[npc.id]
 
+    def check_collision(self, y, x):
+        tag = self.mapArray.special_tiles[self.mapArray.current_map[y, x]]
+        if tag == "col": return True
+        for n in self.npcs:
+            if "block" in n.flags: return True
+        return False
+
 # aux functions
 def battle(player, name_enemy):
     # init background
@@ -433,6 +438,7 @@ def battle(player, name_enemy):
     player.last_battle = 0
     enemy = Enemy(name_enemy, battle_background)
     battle_background.set_camera(0,0)
+    factor = get_weak_factor(player, enemy)
 
     turns = [0,1]
     while 1:
@@ -462,21 +468,23 @@ def battle(player, name_enemy):
             # player
             if i == 0:
                 if action_p == 0:
-                    damage = int(player.atk * random.uniform(0.7, 1.3))
+                    damage = int(player.atk * random.uniform(0.7, 1.3) * factor[0])
                     # damage weaks fix, "<ally> make extra damage"
                     enemy.hp -= damage
-                    myLogic.message(f"you hit {enemy.name} {damage} hp!")
+                    mess = ("your team has an advantage...!" if factor[0] > 1 else "") + f"you hit {enemy.name} {damage} hp!"
+                    myLogic.message(mess)
                 if action_p == 1:
                     use_item_battle(item, player, enemy)
                 
             # enemy
             if i == 1:
                 if action_e == "atk":
-                    damage = int(enemy.atk * random.uniform(0.7, 1.3))
+                    damage = int(enemy.atk * random.uniform(0.7, 1.3) * factor[1])
                     # damage weaks fix, "<ally> receive extra damage"
                     player.hp -= damage
                     player.show_info()
-                    myLogic.message(f"{enemy.name} hit you {damage} hp!")
+                    mess = ("your team has an advantage...!" if factor[1] > 1 else "") + f"{enemy.name} hit you {damage} hp!"
+                    myLogic.message(mess)
                 if action_e == "heal":
                     enemy.hp = min(enemy.hp + enemy.max_hp//2, enemy.max_hp)
                     myLogic.message(f"{enemy.name} heals!")
@@ -488,7 +496,8 @@ def battle(player, name_enemy):
                     myLogic.message(f"{enemy.name} turn into... {enemy.turn}!")
                     current_hp = enemy.hp
                     enemy = Enemy(enemy.turn, battle_background)
-                    enemy.hp = current_hp
+                    enemy.hp = min(current_hp, enemy.max_hp)
+                    factor = get_weak_factor(player, enemy)
                     battle_background.set_camera(0,0)
                 if action_e == "wait":
                     myLogic.message(f"{enemy.name} is waiting...")
@@ -502,12 +511,28 @@ def battle(player, name_enemy):
             # player lose
             if player.hp <= 0: return 0
 
+def get_weak_factor(fig1, fig2):
+    nclass = len(fig1.clas) * len(fig2.clas)
+    fact = 0
+    if nclass == 0: return (1,1)
+    with open(f"{PATH}/meta.json") as f:
+        weaks = json.load(f)['battle']['weaks']
+    for cls1 in fig1.clas:
+        for cls2 in fig2.clas:
+            if cls1 in weaks and cls2 in weaks[cls1]: fact += 1
+            if cls2 in weaks and cls1 in weaks[cls2]: fact -= 1
+    if 0: # discontinuos & flexible
+        if fact >= 0: return (1+fact/nclass, 1-fact/(2*nclass))
+        else: return (1+fact/(2*nclass), 1-fact/nclass)
+    else: # continuous & rigid
+        return (1+fact/nclass, 1-fact/nclass)
+
 def start_management(name):
-    with open(PATH + "/saves.json") as f:
+    with open(f"{PATH}/saves.json") as f:
         saves_data = json.load(f)
     
     # make player
-    with open(PATH + "/meta.json") as f:
+    with open(f"{PATH}/meta.json") as f:
         meta_data = json.load(f)
     if name in saves_data: data_player = saves_data[name]
     else: data_player = meta_data["player"]
@@ -555,9 +580,10 @@ def use_item_zone(item, player):
         else: myLogic.message("not saved yet...")
     if t == "tool":
         for npc in player.currentZone.npcs:
-            if npc.interact_parameters["type"] == "tool" and player.y == npc.y and player.x == npc.x:
+            if "tool" in npc.flags and abs(player.y - npc.y) + abs(player.x - npc.x) <= 1 and npc.interact_parameters["item"] == item:
                 npc.interact(player)
                 used = True
+                break
     # check uses
     if used:
         player.items.remove(item)
@@ -611,12 +637,12 @@ while player.hp > 0 and not player.event_flags["win"]:
 
 # end
 if player.hp <= 0:
-    with open(PATH + "/meta.json") as f:
-        abstract.Sound(PATH + '/' + json.load(f)["music-die"]).play()
+    with open(f"{PATH}/meta.json") as f:
+        abstract.Sound(f"{PATH}/{json.load(f)['music-die']}").play()
     myLogic.message(f"{player.name} die...!")
 elif player.event_flags["win"]:
-    with open(PATH + "/meta.json") as f:
-        abstract.Sound(PATH + '/' + json.load(f)["music-win"]).play()
+    with open(f"{PATH}/meta.json") as f:
+        abstract.Sound(f"{PATH}/{json.load(f)['music-win']}").play()
     myLogic.message(f"{player.name} win! finish the game!")
 
 abstract.screen.curses.endwin()

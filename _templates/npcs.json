@@ -1,0 +1,86 @@
+{
+    "talk":{
+        "id": "talk",
+        "position":[0,0],
+        "event-conditions":{},
+        "sprite":"i",
+        "flags":["move"],
+        "interact":
+        {
+            "type":"talk",
+            "text":"chat generic..."
+        }
+    },
+    "chest":{
+        "id": "chest",
+        "position":[0,0],
+        "event-conditions":{},
+        "sprite":"c",
+        "flags":["single"],
+        "interact":
+        {
+            "type":"deal",
+            "text":"contain nameitem",
+            "take":"null",
+            "give":"item:nameitem",
+            "ask":false
+        }
+    },
+    "block":{
+        "id": "block",
+        "position":[0,0],
+        "event-conditions":{},
+        "sprite":"/",
+        "flags":["tool","block","single"],
+        "interact":
+        {
+            "item":"tool-x",
+            "type":"talk",
+            "text":"path is free!"
+        }
+    },
+    "guard":{
+        "id": "guard",
+        "position":[0,0],
+        "event-conditions":{},
+        "sprite":"g",
+        "flags":["move", "auto", "single"],
+        "interact":
+        {
+            "type":"rush",
+            "text":"battle against me!",
+            "enemy":"null",
+            "ask":false
+        }
+    },
+    "shop":{
+        "id": "shop",
+        "position":[0,0],
+        "event-conditions":{},
+        "sprite":"s",
+        "flags":[],
+        "interact":
+        {
+            "type":"deal",
+            "text":"sell this for x money",
+            "take":"money:x",
+            "give":"type:value",
+            "ask":true
+        }
+    },
+    "boss":{
+        "id": "boss",
+            "position":[0,0],
+            "event-conditions":{},
+            "sprite":"B",
+            "flags":["auto"],
+            "interact":
+            {
+                "type":"rush",
+                "text":"im boss",
+                "enemy":"enemy-in-pjs.json",
+                "ask":false,
+                "event-flags":{}
+            }
+    }
+}
