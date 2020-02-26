@@ -22,8 +22,7 @@
             "position":[5,17],
             "event-conditions":{},
             "sprite":"B",
-            "move":false,
-            "single":false,
+            "flags":["auto"],
             "interact":
             {
                 "type":"rush",

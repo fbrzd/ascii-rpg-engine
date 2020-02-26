@@ -30,8 +30,7 @@
             "position":[2,2],
             "event-conditions":{"ship":false},
             "sprite":"s",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"deal",

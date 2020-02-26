@@ -1,6 +1,6 @@
 {
     "fzio": {
-        "atk": 15,
+        "atk": 13,
         "bag": 10,
         "class": [
             "waifu"
@@ -12,11 +12,13 @@
             "sword": true,
             "win": false
         },
-        "group": [
-            "waifu"
-        ],
-        "hp": 35,
+        "group": [],
+        "hp": 30,
         "items": [
+            "potion",
+            "potion",
+            "potion",
+            "potion",
             "potion",
             "potion",
             "potion",
@@ -24,10 +26,10 @@
             "potion"
         ],
         "max-group": 0,
-        "money": 1,
+        "money": 2,
         "position": [
-            11,
-            26
+            12,
+            11
         ],
         "singles": [],
         "sprite": "p",
@@ -41,7 +43,7 @@
                 "s"
             ]
         },
-        "zone": "town-3"
+        "zone": "town-4"
     },
     "new": {
         "atk": 3,

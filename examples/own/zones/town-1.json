@@ -23,8 +23,7 @@
             "position":[3,8],
             "event-conditions":{},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",
@@ -36,8 +35,7 @@
             "position":[3,10],
             "event-conditions":{},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",
@@ -49,8 +47,7 @@
             "position":[11,5],
             "event-conditions":{},
             "sprite":"i",
-            "move":true,
-            "single":false,
+            "flags":["move"],
             "interact":
             {
                 "type":"talk",
@@ -62,8 +59,7 @@
             "position":[10,25],
             "event-conditions":{},
             "sprite":"b",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"deal",
@@ -78,8 +74,7 @@
             "position":[2,28],
             "event-conditions":{},
             "sprite":"h",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"save",
@@ -91,8 +86,7 @@
             "position":[12,28],
             "event-conditions":{"find":false},
             "sprite":"T",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",

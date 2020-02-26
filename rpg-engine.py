@@ -80,7 +80,7 @@ class Player:
                 tmp_sprite = self.sprite
 
             # effects by tile
-            for n in self.npcs:
+            for n in self.currentZone.npcs:
                 if new_y == n.y and new_x == n.x and "block" in n.flags: current_tile_tag = "col"
                 if abs(new_y - n.y) + abs(new_x - n.x) <= 1 and "auto" in n.flags: n.interact(self)
         

@@ -48,23 +48,5 @@
         "class":"monster",
         "actions":["atk","atk","atk","atk","heal","wait"],
         "flags":["boss"]
-    },
-    "waifu":
-    {
-        "hp":5,
-        "atk":2,
-        "money":0,
-        "bag":0,
-        "class":"waifu",
-        "chats":[
-            {
-                "event-conditions":{},
-                "text":"im your waifu..."
-            },
-            {
-                "event-conditions":{"ship":true},
-                "text":"let's fuck!"
-            }
-        ]
     }
 }

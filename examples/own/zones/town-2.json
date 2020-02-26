@@ -23,8 +23,7 @@
             "position":[1,18],
             "event-conditions":{},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"rush",
@@ -39,8 +38,7 @@
             "position":[8,16],
             "event-conditions":{},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",
@@ -52,8 +50,7 @@
             "position":[12,27],
             "event-conditions":{},
             "sprite":"i",
-            "move":true,
-            "single":false,
+            "flags":["move"],
             "interact":
             {
                 "type":"talk",
@@ -65,8 +62,7 @@
             "position":[1,16],
             "event-conditions":{"sword":false},
             "sprite":"k",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",
@@ -78,8 +74,7 @@
             "position":[1,16],
             "event-conditions":{"sword":true},
             "sprite":"k",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"deal",
@@ -94,8 +89,7 @@
             "position":[11,4],
             "event-conditions":{},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",

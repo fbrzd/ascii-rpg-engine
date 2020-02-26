@@ -23,8 +23,7 @@
             "position":[10,16],
             "event-conditions":{},
             "sprite":"b",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"deal",
@@ -39,8 +38,7 @@
             "position":[10,19],
             "event-conditions":{},
             "sprite":"b",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"deal",
@@ -55,8 +53,7 @@
             "position":[9,2],
             "event-conditions":{},
             "sprite":"i",
-            "move":true,
-            "single":false,
+            "flags":["move"],
             "interact":
             {
                 "type":"talk",
@@ -68,8 +65,7 @@
             "position":[3,14],
             "event-conditions":{"ship":false},
             "sprite":"i",
-            "move":true,
-            "single":false,
+            "flags":["move"],
             "interact":
             {
                 "type":"talk",
@@ -81,8 +77,7 @@
             "position":[3,14],
             "event-conditions":{"ship":true},
             "sprite":"i",
-            "move":true,
-            "single":false,
+            "flags":["move"],
             "interact":
             {
                 "type":"talk",
@@ -94,8 +89,7 @@
             "position":[11,27],
             "event-conditions":{},
             "sprite":"h",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"save",

@@ -28,8 +28,7 @@
             "position":[20,14],
             "event-conditions":{"potions":false},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",
@@ -41,8 +40,7 @@
             "position":[20,14],
             "event-conditions":{"potions":true},
             "sprite":"i",
-            "move":false,
-            "single":false,
+            "flags":[],
             "interact":
             {
                 "type":"talk",
