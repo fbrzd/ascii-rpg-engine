@@ -1,0 +1,29 @@
+{
+    "fzio": {
+        "atk": 1,
+        "bag": 10,
+        "class": [],
+        "event-flags": {
+            "win": false
+        },
+        "group": [],
+        "hp": 5,
+        "items": [
+            "herb",
+            "herb"
+        ],
+        "max-group": 0,
+        "money": 3,
+        "position": [
+            11,
+            25
+        ],
+        "singles": [
+            "chest-tunnel",
+            "chest-tunnel"
+        ],
+        "sprite": "p",
+        "transports": {},
+        "zone": "town-1"
+    }
+}

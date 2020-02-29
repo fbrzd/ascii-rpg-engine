@@ -1,0 +1,53 @@
+{
+    "meta":
+    {
+        "namefile": "maps/dung-tunnel",
+        "music":"music/dung.wav",
+        "tiles":{"A":"col", "-":"wild"},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[2,0],
+            "zone-dst":"world",
+            "new-position":[3,13]
+        },
+        {
+            "event-conditions":{},
+            "position":[14,37],
+            "zone-dst":"world",
+            "new-position":[6,16]
+        }
+    ],
+    "npcs":
+    [
+        {
+            "id": "info",
+            "position": [5,31],
+            "flags": ["move"],
+            "event-conditions": {},
+            "sprite": "i",
+            "interact": {
+                "type": "talk",
+                "text": "who think build a town between mountains?"
+            }
+        },
+        {
+            "id": "chest-tunnel",
+            "position": [10,17],
+            "flags": ["block","single"],
+            "event-conditions": {},
+            "sprite": "o",
+            "interact": {
+                "type": "deal",
+                "text": "(find one herb)",
+                "take":"null",
+                "give":"item:herb",
+                "ask":false
+            }
+        }
+    ]
+}

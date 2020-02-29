@@ -1,0 +1,23 @@
+{
+    "meta":
+    {
+        "namefile": "path/to/map",
+        "music":"path/to/music.mp3",
+        "tiles":{},
+        "enemies":["enemy1-in-pjs.json", "enemy2-in-pjs.json"],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[],
+            "zone-dst":"world",
+            "new-position":[23,30]
+        }
+    ],
+    "npcs":
+    [
+        
+    ]
+}

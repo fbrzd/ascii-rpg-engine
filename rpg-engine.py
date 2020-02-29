@@ -378,9 +378,9 @@ class Zone:
                 self.doors[tuple(door["position"])] = (door["zone-dst"],door["new-position"])
         for npc in data["npcs"]:
             flag_exist = True
+            if npc["id"] in player.singles: flag_exist = False
             for flag,value in npc["event-conditions"].items():
                 if player.event_flags[flag] != value: flag_exist = False
-                if npc["id"] in player.singles: flag_exist = False
             if flag_exist:
                 n = Npc(npc)
                 self.mapArray.add_sprite(n.y, n.x, n.id, n.sprite)
@@ -408,9 +408,9 @@ class Zone:
         
         for data_npc in npcs:
             flag_exist = True
+            if data_npc["id"] in player.singles: flag_exist = False
             for flag,value in data_npc["event-conditions"].items():
                 if player.event_flags[flag] != value: flag_exist = False
-                if data_npc["id"] in player.singles: flag_exist = False
             if flag_exist:
                 n = Npc(data_npc)
                 if n.id in old_npcs: n.y, n.x = old_npcs[n.id]

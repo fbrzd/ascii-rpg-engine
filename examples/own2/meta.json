@@ -1,0 +1,44 @@
+{
+    "player":
+    {
+        "sprite":"p",
+        "zone":"town-1",
+        "position":[3,16],
+        "hp":5,
+        "atk":2,
+        "money":5,
+        "bag":5,
+        
+        "event-flags":{
+            "win":false
+        },
+        
+        "items":[],
+        "class":[],
+        "transports":{},
+        "max-group":0,
+        "group":[],
+        "singles":[]
+    },
+
+    "music-die":"music/die.mp3",
+    "music-win":"music/win.mp3",
+
+    "formats":
+    {
+        "T": {"font":"green", "back":"black", "attrs":[]},
+        ".": {"font":"green", "back":"black", "attrs":["dim"]},
+        "~": {"font":"cyan", "back":"black", "attrs":["dim"]},
+        "+": {"font":"magenta", "back":"black", "attrs":["dim"]},
+        "A": {"font":"white", "back":"black", "attrs":["underline","dim"]},
+        "-": {"font":"yellow", "back":"black", "attrs":[]},
+        "W": {"font":"red", "back":"black", "attrs":["bold","blink"]},
+        "X": {"font":"red", "back":"black", "attrs":[]},
+        "O": {"font":"red", "back":"black", "attrs":["dim"]}
+    },
+
+    "battle":
+    {
+        "weaks":{}
+    }
+}

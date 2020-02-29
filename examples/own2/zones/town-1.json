@@ -1,0 +1,83 @@
+{
+    "doors": [
+        {
+            "event-conditions": {},
+            "new-position": [
+                4,
+                7
+            ],
+            "position": [
+                14,
+                16
+            ],
+            "zone-dst": "world"
+        }
+    ],
+    "meta": {
+        "cycle": false,
+        "enemies": [],
+        "music": "music/runes.wav",
+        "namefile": "maps/town-1",
+        "tiles": {"#":"col", "H":"col", "W":"hurt"}
+    },
+    "npcs": [
+        {
+            "id": "info1",
+            "position": [5,10],
+            "flags": ["move"],
+            "event-conditions": {},
+            "sprite": "i",
+            "interact": {
+                "type": "talk",
+                "text": "time ago the hero defeat demons, this temple exists for seal them"
+            }
+        },
+        {
+            "id": "info2",
+            "position": [4,21],
+            "flags": [],
+            "event-conditions": {},
+            "sprite": "i",
+            "interact": {
+                "type": "talk",
+                "text": "one old man from eastern town send this letter: need help for his grandson... as member of this temple you must go to help!"
+            }
+        },
+        {
+            "id": "buy-herb",
+            "position": [3,1],
+            "flags": [],
+            "event-conditions": {},
+            "sprite": "b",
+            "interact": {
+                "type": "deal",
+                "text": "this herbs can heal in battles or travels, just 5$ ...",
+                "take":"money:5",
+                "give":"item:herb",
+                "ask":true
+            }
+        },
+        {
+            "id": "info3",
+            "position": [10,17],
+            "flags": ["move"],
+            "event-conditions": {},
+            "sprite": "i",
+            "interact": {
+                "type": "talk",
+                "text": "the hero build this town, but he lives as old man in a southern village"
+            }
+        },
+        {
+            "id": "saver",
+            "position": [10,25],
+            "flags": [],
+            "event-conditions": {},
+            "sprite": "h",
+            "interact": {
+                "type": "save",
+                "text": "remember rest when arrive to a new town..."
+            }
+        }
+    ]
+}

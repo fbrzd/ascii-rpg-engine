@@ -1,0 +1,23 @@
+{
+    "meta":
+    {
+        "namefile": "maps/town-2",
+        "music":"path/to/music.mp3",
+        "tiles":{},
+        "enemies":[],
+        "cycle":false
+    },
+    "doors":
+    [
+        {
+            "event-conditions":{},
+            "position":[],
+            "zone-dst":"world",
+            "new-position":[13,9]
+        }
+    ],
+    "npcs":
+    [
+        
+    ]
+}

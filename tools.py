@@ -72,9 +72,9 @@ if mode == "new":
 
 if mode == "npc":
     path = input("name proyect: ")
-    if path not in listdir():
-        print("\033[31mproyect not exist!\033[0m")
-        exit()
+    #if path not in listdir():
+    #    print("\033[31mproyect not exist!\033[0m")
+    #    exit()
     while 1:
         cmd = input("<zone> <npc-template>: ").split(' ')
         if cmd[0] == "q": break

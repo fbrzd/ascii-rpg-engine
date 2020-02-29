@@ -2,9 +2,7 @@
     "fzio": {
         "atk": 13,
         "bag": 10,
-        "class": [
-            "waifu"
-        ],
+        "class": [],
         "event-flags": {
             "find": true,
             "potions": true,
